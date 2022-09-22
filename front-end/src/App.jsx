@@ -1,19 +1,23 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyProvider from './Provider/MyProvider';
-import Exemplo from './pages/Exemplo';
 import ClientProducts from './pages/Client/Products/ClientProducts';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
+import RedirectToLogin from './pages/RedirectToLogin';
+import Login from './pages/Login/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
     <BrowserRouter>
       <MyProvider>
         <Routes>
-          <Route path="/" element={ <Exemplo /> } />
-          <Route path="/customer/products" element={ <ClientProducts /> } />
-          <Route path="/customer/checkout" element={ <ClientOrders /> } />
+          <Route exact path="/login" element={ <Login /> } />
+          <Route exact path="/register" element={ <Register /> } />
+          <Route exact path="/customer/products" element={ <ClientProducts /> } />
+          <Route exact path="/customer/checkout" element={ <ClientOrders /> } />
+          <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>
       </MyProvider>
     </BrowserRouter>
