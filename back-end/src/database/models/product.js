@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     urlImage: {
       type: DataTypes.STRING(200),
-      field: 'url_image'
+      field: 'url_image',
     },
   }, {
     sequelize,
-    modelName: 'Product',
+    modelName: 'product',
     timestamps: false,
   });
   return Product;
