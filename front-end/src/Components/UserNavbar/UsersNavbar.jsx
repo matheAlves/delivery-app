@@ -1,24 +1,29 @@
-import React, { Link } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 function UserNavbar() {
+  const navigate = useNavigate();
+
   return (
     <nav className="nav">
       <div className="navBox">
-        <Link
-          to="/customer/products"
+        <button
+          type="button"
+          onClick={ () => navigate('/customer/products') }
           className="navBoxContent produtos"
           data-testid="customer_products__element-navbar-link-products"
         >
           PRODUTOS
-        </Link>
-        <Link
-          to="/customer/checkout"
+        </button>
+        <button
+          type="button"
+          onClick={ () => navigate('/customer/checkout') }
           className="navBoxContent pedidos"
           datatest-id="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
-        </Link>
+        </button>
       </div>
       <div className="navBox">
         <p

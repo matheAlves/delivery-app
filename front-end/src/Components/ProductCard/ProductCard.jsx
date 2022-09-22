@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
   return (
     <div className="card_body">
@@ -31,5 +33,13 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardId: PropTypes.number.isRequired,
+  cardPrice: PropTypes.string.isRequired,
+  cardQuantity: PropTypes.number.isRequired,
+  cardImg: PropTypes.string.isRequired,
+};
 
 export default ProductCard;
