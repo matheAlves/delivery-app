@@ -1,5 +1,5 @@
 const express = require('express');
-const UserService= require('../service/UserService');
+const UserService = require('../service/UserService');
 const { user } = require('../database/models/index');
 const UserController = require('../controller/UserController');
 

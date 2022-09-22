@@ -1,5 +1,5 @@
 class UserController {
-  _service;
+  _service
 
   constructor(service) {
     this._service = service
