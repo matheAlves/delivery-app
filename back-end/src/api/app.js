@@ -1,9 +1,15 @@
 const express = require('express');
-const UserController = require('../controller/UserController');
+require('express-async-errors');
+const cors = require('cors');
+const errorHanlder = require('../middlewares/errorHandler');
+const userRoute = require('../routes/users');
 
 const app = express();
 
-app.get('/coffee', (_req, res) => res.status(418).end());
-app.get('/users', UserController.findAll);
+app.use(cors());
+
+app.use('/users', userRoute);
+
+app.use(errorHanlder);
 
 module.exports = app;
