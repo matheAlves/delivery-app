@@ -1,15 +1,8 @@
-const { product } = require('../database/models/index');
-const ProductService = require('../service/ProductService');
+const { Router } = require('express');
 const ProductController = require('../controller/ProductController');
-const { Router } = require('express')
 
 const productRoute = Router();
 
-const service = new ProductService(product);
-const controller = new ProductController(service);
+productRoute.get(('/'), ProductController.findAll);
 
-productRoute.get(('/'), (req, res) => controller.findAll(req, res))
-
-module.exports =  {
-  productRoute
-};
+module.exports = { productRoute };

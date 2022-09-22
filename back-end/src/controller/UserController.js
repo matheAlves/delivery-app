@@ -1,15 +1,11 @@
-class UserController {
-  _service;
+const UserService = require('../service/UserService');
 
-  constructor(service) {
-    this._service = service
-  }
-
-  findAll = async (_req, res) => {
-    const result = await this._service.findAll();
+const UserController = {
+  findAll: async (_req, res) => {
+    const result = await UserService.findAll();
 
     res.status(200).json(result);
-  }
-}
+  },
+};
 
 module.exports = UserController;

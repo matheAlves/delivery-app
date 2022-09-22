@@ -1,9 +1,11 @@
-const ServiceSQL = require('./ServiceSQL');
+const { user } = require('../database/models/index');
 
-class UserService extends ServiceSQL {
-  constructor(model) {
-    super(model)
-  }
-}
+const UserService = {
+ findAll: async () => {
+    const result = await user.findAll();
+
+    return result;
+  },
+};
 
 module.exports = UserService;

@@ -1,14 +1,10 @@
-class ProductController {
-  _service;
+const ProductService = require('../service/ProductService');
 
-  constructor(service) {
-    this._service = service
-  }
-
-  findAll = async (_req, res) => {
-    const result = await this._service.findAll();
+const ProductController = {
+  findAll: async (_req, res) => {
+    const result = await ProductService.findAll();
     res.status(200).json(result);
-  }
-}
+  },
+};
 
 module.exports = ProductController;
