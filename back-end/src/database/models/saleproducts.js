@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     saleId: {
       primaryKey: true,
       type: DataTypes.INTEGER,
+      field: 'sale_id',
       references: {
         model: 'sales',
         key: 'id'
@@ -18,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     productId: {
       primaryKey: true,
       type: DataTypes.INTEGER,
+      field: 'product_id',
       references: {
         model: 'products',
         key: 'id'
@@ -28,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'SaleProducts',
+    modelName: 'saleProducts',
     timestamps: false,
   });
   return SaleProduct;

@@ -8,30 +8,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         }
       },
-      sellerId: {
+      seller_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         }
       },
-      totalPrice: {
+      total_price: {
         type: Sequelize.DECIMAL(9,2)
       },
-      deliveryAddress: {
+      delivery_address: {
         type: Sequelize.STRING(100)
       },
-      deliveryNumber: {
+      delivery_number: {
         type: Sequelize.STRING(50)
       },
-      saleDate: {
+      sale_date: {
         type: Sequelize.DATE,
       },
       status: {
