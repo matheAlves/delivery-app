@@ -1,10 +1,15 @@
 const { user: UserModel } = require('../database/models');
 
 const UserService = {
-  findAll: async () => {
-    const result = await UserModel.findAll();
+  getOneWichEmail: async (email) => {
+    const user = await UserModel.findOne({
+      where: {
+        email,
+      },
+      raw: true,
+    });
 
-    return result;
+    return user;
   },
 };
 
