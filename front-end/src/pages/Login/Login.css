@@ -1,0 +1,68 @@
+.display-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+label {
+  align-items: flex-start;
+  margin: 15px 0;
+}
+
+.form {
+  background-color: #eaf1ef;
+  height: 500px;
+  width: 70%;
+  min-width: 500px;
+  max-width: 800px;
+  margin: calc((100vh - 500px) / 2) auto;
+  align-items: center;
+  border: 3px solid #036B52;
+  border-radius: 20px;
+}
+
+.button, .button-outlined {
+  width: 200px;
+}
+
+.button button {
+  background-color: #036B52;
+  color: white;
+}
+
+.button-outlined button {
+  color: #036B52;
+  border: 3px solid #036B52;
+}
+
+div button {
+  width: 100%;
+  padding: 5px 15px;
+  transition: .2s;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.button button:disabled {
+  background-color: rgb(255, 161, 161);
+  color: red;
+  transition: .2s;
+}
+
+.font-size {
+  font-size: 20px;
+}
+
+input, button {
+  border-radius: 5px;
+}
+
+input {
+  padding: 5px;
+}
+
+p {
+  color: red;
+  font-size: 20px;
+}
