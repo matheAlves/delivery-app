@@ -1,15 +1,11 @@
-class UserService extends ServiceSQL {
-  _model
+const { user: UserModel } = require('../database/models');
 
-  constructor(model) {
-    this._model = model;
-  }
-
-  findAll = async () => {
-    const result = await this._model.findAll();
+const UserService = {
+  findAll: async () => {
+    const result = await UserModel.findAll();
 
     return result;
-  }
-}
+  },
+};
 
 module.exports = UserService;
