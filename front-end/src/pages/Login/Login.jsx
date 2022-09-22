@@ -4,19 +4,44 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   const [valid, setValid] = useState(false);
-  const [login, setLogin] = useState('');
+  const [authenticated, setAuthenticated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const SUCCESSFULLY_HTTP_STATUS = 200;
 
   useEffect(() => {
     const MIN_PASSWORD_LENGTH = 6;
     const loginRegex = /\S+@\S+\.com/;
 
-    if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(login)) {
+    if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(email)) {
       setValid(true);
     } else {
       setValid(false);
     }
-  }, [login, password]);
+  }, [email, password]);
+
+  const login = async () => {
+    const result = await fetch('http://localhost:3001/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await result.json();
+
+    if (result.status !== SUCCESSFULLY_HTTP_STATUS) {
+      setAuthenticated(true);
+      setErrorMessage(data.message);
+    } else {
+      setAuthenticated(false);
+      navigate('/customer/products');
+    }
+  };
 
   return (
     <form>
@@ -27,8 +52,8 @@ function Login() {
           type="text"
           placeholder="email@tryber.com"
           data-testid="common_login__input-email"
-          value={ login }
-          onChange={ ({ target }) => setLogin(target.value) }
+          value={ email }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
 
@@ -47,6 +72,7 @@ function Login() {
         type="button"
         data-testid="common_login__button-login"
         disabled={ !valid }
+        onClick={ login }
       >
         LOGIN
       </button>
@@ -59,9 +85,9 @@ function Login() {
         Ainda não tenho conta
       </button>
 
-      { !valid && (
+      { authenticated && (
         <p data-testid="common_login__element-invalid-email">
-          Elemento oculto (mensagem de erro)
+          { errorMessage }
         </p>
       )}
     </form>
