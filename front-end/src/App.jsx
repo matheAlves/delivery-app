@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyProvider from './Provider/MyProvider';
 import RedirectToLogin from './pages/RedirectToLogin';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
