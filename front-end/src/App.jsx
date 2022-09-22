@@ -1,8 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MyProvider from './Provider/MyProvider';
 import Exemplo from './pages/Exemplo';
+import Register from './pages/Register';
+import MyProvider from './Provider/MyProvider';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <MyProvider>
         <Routes>
           <Route path="/" element={ <Exemplo /> } />
+          <Route exact path="/register" element={ <Register /> } />
         </Routes>
       </MyProvider>
     </BrowserRouter>
