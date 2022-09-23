@@ -10,4 +10,6 @@ userRoute.post(
   UserController.getOneNoPassword,
 );
 
+userRoute.get('/sellers', UserController.getAllSellers);
+
 module.exports = userRoute;
