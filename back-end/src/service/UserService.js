@@ -13,17 +13,19 @@ const UserService = {
 
     return user;
   },
+
   getOneNoPassword: async (email) => {
     const user = await UserModel.findOne({
       where: {
         email,
       },
-attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password'] },
       raw: true,
     });
 
     return user;
- },
+  },
+
   createUser: async ({ name, email, password, role }) => {
     const emailExists = await UserModel.findOne({ where: { email } });
     if (emailExists !== null) {
@@ -33,6 +35,18 @@ attributes: { exclude: ['password'] },
     const newPassword = md5(password);
     const newUser = await UserModel.create({ name, email, password: newPassword, role });
     return newUser;
+  },
+
+  getAllSellers: async () => {
+    const user = await UserModel.findAll({
+      where: {
+        role: 'seller',
+      },
+      attributes: { exclude: ['password', 'id', 'email', 'role'] },
+      raw: true,
+    });
+
+    return user;
   },
 };
 
