@@ -1,25 +1,21 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .container {
+  align-items: center;
+  background-color: blueviolet;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-left: 400px;
   width: 34%;
-  background-color: blueviolet;
 }
 
 .flex {
+  align-items: center;
+  background-color: #eaf1ef;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: #EAF1EF;
 }
-
-
-
-

@@ -9,5 +9,6 @@ userRoute.post(
   validateCredentials,
   UserController.getOneNoPassword,
 );
+userRoute.post('/register', UserController.createUser);
 
 module.exports = userRoute;
