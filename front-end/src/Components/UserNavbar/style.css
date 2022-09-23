@@ -21,10 +21,13 @@
 
 .produtos {
   background: #2fc18c;
+  border-style: none;
   text-decoration: none;
 }
 
 .pedidos {
+  background-color: #036b52;
+  border-style: none;
   color: white;
   text-decoration: none;
 }

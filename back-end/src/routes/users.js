@@ -7,7 +7,7 @@ const userRoute = Router();
 userRoute.post(
   '/',
   validateCredentials,
-  UserController.getOneWichEmail,
+  UserController.getOneNoPassword,
 );
 userRoute.post('/register', UserController.createUser);
 
