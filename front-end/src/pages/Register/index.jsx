@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './register.css';
+import './style.css';
 
 function Register() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function Register() {
   const handleClick = async () => {
     const STATUS_CODE = 201;
     try {
-      const result = await fetch('http://localhost:3001/register', {
+      const result = await fetch('http://localhost:3001/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -33,13 +33,12 @@ function Register() {
           role: 'customer',
         }),
       });
-      const data = await result.json();
+      await result.json();
       if (result.status !== STATUS_CODE) {
         setHiddenMessage(true);
       } else {
         navigate('/customer/products');
       }
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +74,7 @@ function Register() {
           Senha
           <input
             data-testid="common_register__input-password"
-            type="text"
+            type="password"
             id="password"
             placeholder="Senha"
             value={ password }

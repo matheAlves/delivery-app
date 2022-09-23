@@ -9,5 +9,6 @@ userRoute.post(
   validateCredentials,
   UserController.getOneWichEmail,
 );
+userRoute.post('/register', UserController.createUser);
 
 module.exports = userRoute;
