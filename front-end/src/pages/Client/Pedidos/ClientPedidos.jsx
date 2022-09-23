@@ -1,7 +1,20 @@
+import { useEffect, useState } from 'react';
 import ItemsOrdered from '../../../Components/ItemsOrdered/ItemsOrdered';
 import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
+import getSellers from '../../../services/userAPI';
 
 function ClientOrders() {
+  const [sellers, setSellers] = useState([]);
+
+  const setSellersFromDB = async () => {
+    const sellersFound = await getSellers();
+    setSellers(sellersFound);
+  };
+
+  useEffect(() => {
+    setSellersFromDB();
+  }, []);
+
   return (
     <>
       <header>
@@ -16,7 +29,9 @@ function ClientOrders() {
 
       <section>
         <select data-testid="customer_checkout__select-seller">
-          <option>Vendedores</option>
+          {
+            sellers.map(({ name }) => <option key={ name }>{ name }</option>)
+          }
         </select>
 
         <label htmlFor="addres">
