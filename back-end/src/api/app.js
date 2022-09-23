@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use('/users', userRoute);
 app.use('/products', productRoute);
+app.use('/images', express.static('./public'));
 app.use('/register', registerRouter);
 
 app.use(errorHanlder);

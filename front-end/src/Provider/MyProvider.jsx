@@ -1,21 +1,22 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './MyContext';
+import fetchProducts from '../services/clientAPI';
 
 function MyProvider({ children }) {
-  const [exemplo, setExemplo] = useState('Esse é um texto de exemplo galerinha.');
+  const [products, setProducts] = useState([]);
 
-  const contextObject = useMemo(() => ({
-    // Exemplo de como setar estado de maneira global com o provider.//
-    // criando um estado e passando pro objeto do provider ele pode ser recuperado por props//
-    // globalmente, deixando esse exemplo caso alguem precise. Podem apagar esse estado e comment depois.//
+  const contextObject = useMemo(() => ({ products, setProducts }), [products]);
 
-    // o hook useMemo ele funciona para evitar renderizações indesejadas.//
-    // passando no array no segundo parametro qual dependencia vai causar outro render//
-    // somente quando aquela dependencia especifica for chamada, bom levar isso em conta futuramente. ;D//
-    exemplo,
-    setExemplo,
-  }), [exemplo]);
+  const getProducts = async () => {
+    const get = await fetchProducts();
+    console.log('peguei');
+    setProducts(get);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <MyContext.Provider value={ contextObject }>
