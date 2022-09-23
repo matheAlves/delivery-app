@@ -1,10 +1,12 @@
 const UserService = require('../service/UserService');
 
 const UserController = {
-  findAll: async (_req, res) => {
-    const result = await UserService.findAll();
+  getOneWichEmail: async (req, res) => {
+    const { email } = req.body;
 
-    res.status(200).json(result);
+    const user = await UserService.getOneWichEmail(email);
+
+    res.status(200).json(user);
   },
 
   createUser: async (req, res) => {

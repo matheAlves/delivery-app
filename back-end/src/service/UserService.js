@@ -2,10 +2,15 @@ const md5 = require('md5');
 const { user: UserModel } = require('../database/models');
 
 const UserService = {
-  findAll: async () => {
-    const result = await UserModel.findAll();
+  getOneWichEmail: async (email) => {
+    const user = await UserModel.findOne({
+      where: {
+        email,
+      },
+      raw: true,
+    });
 
-    return result;
+    return user;
   },
 
   createUser: async ({ name, email, password, role }) => {
