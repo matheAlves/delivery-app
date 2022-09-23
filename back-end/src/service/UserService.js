@@ -1,4 +1,5 @@
 const { user: UserModel } = require('../database/models');
+// const joi = require('joi');
 
 const UserService = {
   getOneWichEmail: async (email) => {
@@ -16,7 +17,8 @@ const UserService = {
     const user = await UserModel.findOne({
       where: {
         email,
-      }, attributes: { exclude: ['password']},
+      },
+attributes: { exclude: ['password'] },
       raw: true,
     });
 

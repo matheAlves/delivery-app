@@ -1,5 +1,7 @@
 const httpStatus = {
   'Invalid email or password': 404,
+  'Token not found': 404,
+  'Token must be a valid token': 401,
 };
 
 const errorHandler = (error, _req, res, _next) => {
