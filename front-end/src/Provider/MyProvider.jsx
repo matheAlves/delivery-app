@@ -10,7 +10,6 @@ function MyProvider({ children }) {
 
   const getProducts = async () => {
     const get = await fetchProducts();
-    console.log('peguei');
     setProducts(get);
   };
 
