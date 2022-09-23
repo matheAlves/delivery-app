@@ -1,5 +1,6 @@
 const httpStatus = {
   'Invalid login or password.': 404,
+  'User already exists': 409,
 };
 
 const errorHandler = (error, _req, res, _next) => {
