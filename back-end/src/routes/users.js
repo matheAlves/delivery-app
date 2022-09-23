@@ -7,7 +7,7 @@ const userRoute = Router();
 userRoute.post(
   '/',
   validateCredentials,
-  UserController.getOneWichEmail,
+  UserController.getOneNoPassword,
 );
 
 module.exports = userRoute;

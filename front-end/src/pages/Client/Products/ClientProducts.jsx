@@ -8,9 +8,7 @@ function ClientProducts() {
 
   return (
     <>
-      <header>
-        <UserNavbar />
-      </header>
+      <UserNavbar />
       <section className="products_list">
         {products.map((itm) => (
           <ProductCard

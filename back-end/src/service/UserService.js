@@ -11,6 +11,17 @@ const UserService = {
 
     return user;
   },
+
+  getOneNoPassword: async (email) => {
+    const user = await UserModel.findOne({
+      where: {
+        email,
+      }, attributes: { exclude: ['password']},
+      raw: true,
+    });
+
+    return user;
+  },
 };
 
 module.exports = UserService;
