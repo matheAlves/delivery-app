@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -44,8 +45,16 @@ function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="login">
+    <form className="form display-flex">
+      { authenticated && (
+        <p data-testid="common_login__element-invalid-email">
+          { errorMessage }
+        </p>
+      )}
+      <label
+        htmlFor="login"
+        className="display-flex font-size"
+      >
         Login
         <input
           id="login"
@@ -54,10 +63,14 @@ function Login() {
           data-testid="common_login__input-email"
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
+          className="font-size"
         />
       </label>
 
-      <label htmlFor="password">
+      <label
+        htmlFor="password"
+        className="display-flex font-size"
+      >
         Senha
         <input
           id="password"
@@ -65,31 +78,32 @@ function Login() {
           data-testid="common_login__input-password"
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
+          className="font-size"
         />
       </label>
 
-      <button
-        type="button"
-        data-testid="common_login__button-login"
-        disabled={ !valid }
-        onClick={ login }
-      >
-        LOGIN
-      </button>
+      <div className="button">
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ !valid }
+          onClick={ login }
+          className="font-size"
+        >
+          Login
+        </button>
+      </div>
 
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-        onClick={ () => navigate('/register') }
-      >
-        Ainda não tenho conta
-      </button>
-
-      { authenticated && (
-        <p data-testid="common_login__element-invalid-email">
-          { errorMessage }
-        </p>
-      )}
+      <div className="button-outlined">
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
+          className="font-size"
+        >
+          Ainda não tenho conta
+        </button>
+      </div>
     </form>
   );
 }

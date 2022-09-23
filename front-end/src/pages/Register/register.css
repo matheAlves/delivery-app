@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 400px;
+  width: 34%;
+  background-color: blueviolet;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #EAF1EF;
+}
+
+
+
+

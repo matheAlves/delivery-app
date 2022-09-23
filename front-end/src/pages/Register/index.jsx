@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './register.css';
 
 function Register() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setDisabled] = useState(true);
+  const [hiddenMessage, setHiddenMessage] = useState(false);
 
   useEffect(() => {
     const MIN_NAME_LENGTH = 12;
@@ -15,10 +20,35 @@ function Register() {
     setDisabled(!isValid);
   }, [name, email, password]);
 
+  const handleClick = async () => {
+    const STATUS_CODE = 201;
+    try {
+      const result = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role: 'customer',
+        }),
+      });
+      const data = await result.json();
+      if (result.status !== STATUS_CODE) {
+        setHiddenMessage(true);
+      } else {
+        navigate('/customer/products');
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div>
+    <div className="container">
       <h1>Cadastro</h1>
-      <form>
+      <form className="flex">
         <label htmlFor="name">
           Nome
           <input
@@ -54,11 +84,18 @@ function Register() {
         </label>
         <button
           data-testid="common_register__button-register"
-          type="submit"
+          type="button"
           disabled={ isDisabled }
+          onClick={ handleClick }
         >
           CADASTRAR
         </button>
+
+        { hiddenMessage && (
+          <p data-testid="common_register__element-invalid_register">
+            User already exists
+          </p>
+        )}
       </form>
     </div>
   );
