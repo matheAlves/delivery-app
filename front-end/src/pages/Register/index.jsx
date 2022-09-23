@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setDisabled] = useState(true);
+  const [hiddenMessage, setHiddenMessage] = useState(false);
 
   useEffect(() => {
     const MIN_NAME_LENGTH = 12;
@@ -14,6 +18,25 @@ function Register() {
       && password.trim().length >= MIN_PASSWORD_LENGTH;
     setDisabled(!isValid);
   }, [name, email, password]);
+
+  const handleClick = async () => {
+    try {
+      await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role: 'customer',
+        }),
+      });
+      navigate('/customer/products');
+    } catch (error) {
+      // console.log(error);
+      setHiddenMessage(true);
+    }
+  };
 
   return (
     <div>
@@ -54,11 +77,18 @@ function Register() {
         </label>
         <button
           data-testid="common_register__button-register"
-          type="submit"
+          type="button"
           disabled={ isDisabled }
+          onClick={ handleClick }
         >
           CADASTRAR
         </button>
+
+        { hiddenMessage && (
+          <p data-testid="common_register__element-invalid_register">
+            User already exists
+          </p>
+        )}
       </form>
     </div>
   );
