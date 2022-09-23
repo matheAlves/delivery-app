@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './register.css';
 
 function Register() {
   const navigate = useNavigate();
@@ -20,8 +21,9 @@ function Register() {
   }, [name, email, password]);
 
   const handleClick = async () => {
+    const STATUS_CODE = 201;
     try {
-      await fetch('http://localhost:3001/register', {
+      const result = await fetch('http://localhost:3001/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -31,17 +33,22 @@ function Register() {
           role: 'customer',
         }),
       });
-      navigate('/customer/products');
+      const data = await result.json();
+      if (result.status !== STATUS_CODE) {
+        setHiddenMessage(true);
+      } else {
+        navigate('/customer/products');
+      }
+      console.log(data);
     } catch (error) {
-      // console.log(error);
-      setHiddenMessage(true);
+      console.log(error);
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Cadastro</h1>
-      <form>
+      <form className="flex">
         <label htmlFor="name">
           Nome
           <input
