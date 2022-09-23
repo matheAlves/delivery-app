@@ -13,6 +13,12 @@ const UserController = {
     const newUser = await UserService.createUser({ name, email, password, role });
     return res.status(201).json(newUser);
   },
+
+  getAllSellers: async (_req, res) => {
+    const users = await UserService.getAllSellers();
+    
+    res.status(200).json(users);
+  },
 };
 
 module.exports = UserController;
