@@ -11,4 +11,9 @@ userRoute.post(
 );
 userRoute.post('/register', UserController.createUser);
 
+userRoute.get(
+  '/validate',
+  UserController.loginValidate,
+);
+
 module.exports = userRoute;
