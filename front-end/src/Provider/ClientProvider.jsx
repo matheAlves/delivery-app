@@ -1,37 +1,35 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState, useMemo, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
-// import { useNavigate } from 'react-router-dom';
 import ClientContext from './ClientContext';
-// import MyContext from './MyContext';
+import MyContext from './MyContext';
 
 function ClientProvider({ children }) {
-  // const { products } = useContext(MyContext);
-  const [shoppingCart, setShoppingCart] = useState([]);
+  const { products } = useContext(MyContext);
+  const [shoppingCart, setShoppingCart] = useState(products);
 
-  // const test = useCallback((id, operation) => {
-  //   products.forEach((itm) => {
-  //     if (shoppingCart[`${itm.productId}`] === id) {
-  //       if (operation === '+') shoppingCart[`${itm.productId}`].quantity += 1;
-  //       shoppingCart[`${itm.productId}`].quantity -= 1;
-  //     }
-  //     if (itm.id === id) {
-  //       const obj = {
-  //         productId: itm.id,
-  //         name: itm.name,
-  //         quantity: 0,
-  //         unitPrice: itm.price,
-  //         subTotal: '0,00',
-  //       };
-  //       obj.quantity = operation === '+' ? obj.quantity += 1 : obj.quantity -= 1;
-  //       obj.subTotal = obj.quantity === 0 ? '0,00' : obj.quantity * obj.unitPrice;
-  //       setShoppingCart([...shoppingCart, obj]);
-  //       console.log(obj);
-  //     }
-  //   });
-  // }, [products, shoppingCart]);
+  const setItemQuantity = useCallback((id, operation) => {
+    const [productId] = shoppingCart.filter((product) => product.id === id);
+
+    if (!operation.innerHTML) {
+      productId.quantity = Number(operation.value);
+    } else if (operation.innerHTML === '+') {
+      console.log(productId.quantity);
+      productId.quantity += 1;
+    } else if (productId.quantity > 0) {
+      console.log(productId.quantity);
+      productId.quantity -= 1;
+    } else {
+      productId.quantity = 0;
+    }
+
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
 
   const contextObject = useMemo(() => ({
-    shoppingCart, setShoppingCart }), [shoppingCart]);
+    shoppingCart,
+    setShoppingCart,
+    setItemQuantity,
+  }), [shoppingCart, setItemQuantity]);
 
   return (
     <ClientContext.Provider value={ contextObject }>
