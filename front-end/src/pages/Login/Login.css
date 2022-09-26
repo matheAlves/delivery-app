@@ -21,11 +21,11 @@ label {
   width: 70%;
 }
 
-input, button {
+form input, form button {
   border-radius: 5px;
 }
 
-div button {
+form div button {
   cursor: pointer;
   margin: 10px 0;
   padding: 5px 15px;
@@ -58,11 +58,11 @@ div button {
   font-size: 20px;
 }
 
-input {
+form input {
   padding: 5px;
 }
 
-p {
+form p {
   color: red;
   font-size: 20px;
 }

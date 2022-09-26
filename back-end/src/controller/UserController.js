@@ -18,6 +18,12 @@ const UserController = {
     return res.status(201).json(newUser);
   },
 
+  getAllSellers: async (_req, res) => {
+    const users = await UserService.getAllSellers();
+    
+    res.status(200).json(users);
+  },
+  
   loginValidate: async (req, res) => {
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).json({ message: 'Missing token' });

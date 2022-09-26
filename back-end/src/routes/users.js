@@ -16,4 +16,6 @@ userRoute.get(
   UserController.loginValidate,
 );
 
+userRoute.get('/sellers', UserController.getAllSellers);
+
 module.exports = userRoute;
