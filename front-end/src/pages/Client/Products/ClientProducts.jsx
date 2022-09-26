@@ -1,13 +1,29 @@
-import React, { useEffect, useContext, useCallback } from 'react';
+import React, { useEffect, useContext, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
+import ClientContext from '../../../Provider/ClientContext';
 import MyContext from '../../../Provider/MyContext';
 import './style.css';
 
 function ClientProducts() {
   const { products, setUser } = useContext(MyContext);
+  const { shoppingCart, setShoppingCart } = useContext(ClientContext);
   const navigate = useNavigate();
+  const [totalValue, setTotalValue] = useState(0);
+
+  const calculateTotalValue = useCallback(() => {
+    const calculatedTotalValue = shoppingCart.reduce((acc, product) => {
+      const partial = acc;
+      if (product.quantity !== 0) {
+        const productTotal = product.quantity * Number(product.price);
+        const partialTotal = partial + productTotal;
+        return partialTotal;
+      } return acc;
+    }, 0);
+
+    setTotalValue(calculatedTotalValue);
+  }, [shoppingCart]);
 
   const checkIsValid = useCallback(async () => {
     const url = 'http://localhost:3001/users/validate';
@@ -35,20 +51,42 @@ function ClientProducts() {
     checkIsValid();
   }, [setUser, navigate, checkIsValid]);
 
-  useEffect(() => getUser(), [getUser]);
+  const putQuantityIntoProducts = useCallback(() => {
+    const storedShoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+    console.log(storedShoppingCart);
+    if (!storedShoppingCart) {
+      if (shoppingCart.length === 0) {
+        setShoppingCart(products);
+      } else if (!Object.keys(shoppingCart[0]).includes('quantity')) {
+        setShoppingCart(products.map((product) => ({ ...product, quantity: 0 })));
+      }
+    } else {
+      setShoppingCart(storedShoppingCart);
+    }
+  }, [products, setShoppingCart, shoppingCart]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
+  useEffect(() => {
+    putQuantityIntoProducts();
+    calculateTotalValue();
+  }, []);
 
   return (
     <>
       <UserNavbar />
       <section className="products_list">
-        {products.map((itm) => (
+        {shoppingCart.map((itm) => (
           <ProductCard
             cardName={ itm.name }
             cardPrice={ itm.price }
             cardId={ itm.id }
             key={ itm.id }
             cardImg={ itm.urlImage }
-            cardQuantity={ 0 }
+            cardQuantity={ itm.quantity }
+            calculateTotalValue={ calculateTotalValue }
           />
         ))}
         <button
@@ -57,7 +95,7 @@ function ClientProducts() {
           onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__checkout-bottom-value"
         >
-          {`Ver carrinho: ${'valor futuro'}`}
+          {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',')}`}
         </button>
       </section>
     </>
