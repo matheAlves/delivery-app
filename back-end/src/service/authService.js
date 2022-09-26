@@ -6,7 +6,7 @@ const jwtKey = require('fs')
 
 const authService = {
   createToken: (body) => {
-    const create = jwt.sign({ body }, jwtKey, { expiresIn: '15s' });
+    const create = jwt.sign({ body }, jwtKey, { expiresIn: '3h' });
     return create;
   },
   readToken: (token) => {

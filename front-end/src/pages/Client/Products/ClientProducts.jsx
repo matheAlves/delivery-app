@@ -19,6 +19,7 @@ function ClientProducts() {
         Authorization: localUser.token,
       } });
     const data = await get.json();
+
     if (!data.role) {
       localStorage.removeItem('user');
       navigate('/login');
@@ -53,6 +54,8 @@ function ClientProducts() {
         <button
           type="button"
           className="cartButton"
+          onClick={ () => navigate('/customer/checkout') }
+          data-testid="customer_products__checkout-bottom-value"
         >
           {`Ver carrinho: ${'valor futuro'}`}
         </button>

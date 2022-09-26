@@ -15,7 +15,6 @@ function UserNavbar() {
 
   return (
     <nav className="nav">
-      {/* <div className="navBox"> */}
       <button
         type="button"
         onClick={ () => navigate('/customer/products') }
@@ -26,14 +25,12 @@ function UserNavbar() {
       </button>
       <button
         type="button"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => navigate('/customer/orders') }
         className="navBoxContent pedidos"
         data-testid="customer_products__element-navbar-link-orders"
       >
         MEUS PEDIDOS
       </button>
-      {/* </div> */}
-      {/* <div className="navBox"> */}
       <p
         className="navBoxContent usuarioNome"
         data-testid="customer_products__element-navbar-user-full-name"
@@ -44,11 +41,10 @@ function UserNavbar() {
         type="button"
         className="navBoxContent logout"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => { logout(); } }
+        onClick={ logout }
       >
         Sair
       </button>
-      {/* </div> */}
     </nav>
   );
 }

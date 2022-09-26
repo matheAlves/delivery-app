@@ -1,6 +1,7 @@
 const md5 = require('md5');
 const joi = require('joi');
 const { user: UserModel } = require('../database/models');
+const authService = require('./authService');
 
 const UserService = {
   validateBodyLogin: async (body) => {
@@ -15,6 +16,7 @@ const UserService = {
     const result = await schema.validateAsync(body);
     return result;
   },
+
   getOneWichEmail: async (email) => {
     const user = await UserModel.findOne({
       where: {
@@ -40,13 +42,20 @@ const UserService = {
 
   createUser: async ({ name, email, password, role }) => {
     const emailExists = await UserModel.findOne({ where: { email } });
+
     if (emailExists !== null) {
       throw new Error('User already exists');
     }
 
     const newPassword = md5(password);
-    const newUser = await UserModel.create({ name, email, password: newPassword, role });
-    return newUser;
+    await UserModel.create({ name, email, password: newPassword, role });
+    const token = authService.createToken({ name, email, role });
+    return {
+      name,
+      email,
+      role,
+      token,
+    };
   },
 
   getAllSellers: async () => {
