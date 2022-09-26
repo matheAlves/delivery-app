@@ -2,8 +2,8 @@ import React, { useEffect, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
-import ClientProvider from '../../../Provider/ClientProvider';
 import MyContext from '../../../Provider/MyContext';
+import './style.css';
 
 function ClientProducts() {
   const { products, setUser } = useContext(MyContext);
@@ -19,7 +19,10 @@ function ClientProducts() {
         Authorization: localUser.token,
       } });
     const data = await get.json();
-    if (!data.role) navigate('/login');
+    if (!data.role) {
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
   }, [navigate]);
 
   const getUser = useCallback(() => {
@@ -34,7 +37,7 @@ function ClientProducts() {
   useEffect(() => getUser(), [getUser]);
 
   return (
-    <ClientProvider>
+    <>
       <UserNavbar />
       <section className="products_list">
         {products.map((itm) => (
@@ -47,8 +50,14 @@ function ClientProducts() {
             cardQuantity={ 0 }
           />
         ))}
+        <button
+          type="button"
+          className="cartButton"
+        >
+          {`Ver carrinho: ${'valor futuro'}`}
+        </button>
       </section>
-    </ClientProvider>
+    </>
   );
 }
 

@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import ClientContext from '../../Provider/ClientContext';
 
 function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
+  const { test } = useContext(ClientContext);
   return (
     <div className="card_body">
       <div
@@ -29,6 +32,7 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${cardId}` }
+          onClick={ () => test(cardId, '+') }
         >
           -
         </button>
@@ -42,6 +46,7 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${cardId}` }
+          onClick={ () => test(cardId, '+') }
         >
           +
         </button>
