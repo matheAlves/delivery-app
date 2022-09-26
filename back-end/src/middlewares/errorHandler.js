@@ -1,5 +1,6 @@
 const httpStatus = {
-  'Invalid email or password': 404,
+  'Invalid email': 404,
+  'Invalid password': 404,
   'Token not found': 404,
   'Token must be a valid token': 401,
   'User already exists': 409,

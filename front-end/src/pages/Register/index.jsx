@@ -33,10 +33,12 @@ function Register() {
           role: 'customer',
         }),
       });
-      await result.json();
+      const data = await result.json();
+      console.log(result, data);
       if (result.status !== STATUS_CODE) {
         setHiddenMessage(true);
       } else {
+        localStorage.setItem('user', JSON.stringify(data));
         navigate('/customer/products');
       }
     } catch (error) {
