@@ -1,9 +1,29 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import ClientContext from '../../Provider/ClientContext';
 
-function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
-  const { test } = useContext(ClientContext);
+function ProductCard({
+  cardImg,
+  cardName,
+  cardPrice,
+  cardId,
+  cardQuantity,
+  calculateTotalValue,
+}) {
+  const { setItemQuantity } = useContext(ClientContext);
+  const [quantity, setQuantity] = useState(cardQuantity || 0);
+
+  const setInputQuantity = ({ target }) => {
+    calculateTotalValue();
+    if (target.value >= 0) {
+      setQuantity(target.value);
+      setItemQuantity(cardId, target);
+    } else {
+      setQuantity(0);
+      setItemQuantity(cardId, target);
+    }
+  };
+
   return (
     <div className="card_body">
       <div
@@ -32,21 +52,21 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${cardId}` }
-          onClick={ () => test(cardId, '+') }
+          onClick={ ({ target }) => setItemQuantity(cardId, target) }
         >
           -
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${cardId}` }
-          value={ cardQuantity }
+          value={ quantity }
           type="text"
           className="quantity"
-          readOnly
+          onChange={ setInputQuantity }
         />
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${cardId}` }
-          onClick={ () => test(cardId, '+') }
+          onClick={ ({ target }) => setItemQuantity(cardId, target) }
         >
           +
         </button>
@@ -61,6 +81,7 @@ ProductCard.propTypes = {
   cardPrice: PropTypes.string.isRequired,
   cardQuantity: PropTypes.number.isRequired,
   cardImg: PropTypes.string.isRequired,
+  calculateTotalValue: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
