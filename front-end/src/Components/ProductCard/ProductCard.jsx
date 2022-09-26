@@ -10,7 +10,7 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
           className="card_price"
           data-testid={ `customer_products__element-card-price-${cardId}` }
         >
-          { cardPrice }
+          { cardPrice.replace('.', ',') }
         </p>
         <img
           src={ cardImg }
@@ -37,6 +37,7 @@ function ProductCard({ cardImg, cardName, cardPrice, cardId, cardQuantity }) {
           value={ cardQuantity }
           type="text"
           className="quantity"
+          readOnly
         />
         <button
           type="button"

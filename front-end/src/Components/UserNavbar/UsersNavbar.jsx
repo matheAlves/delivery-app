@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MyContext from '../../Provider/MyContext';
 import './style.css';
 
 function UserNavbar() {
+  const { setUser, user } = useContext(MyContext);
   const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    setUser('');
+    navigate('/login');
+  };
 
   return (
     <nav className="nav">
@@ -30,13 +38,13 @@ function UserNavbar() {
         className="navBoxContent usuarioNome"
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        Nome do usuario
+        { user ? user.name : 'user' }
       </p>
       <button
         type="button"
         className="navBoxContent logout"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => { console.log('logout function called'); } }
+        onClick={ () => { logout(); } }
       >
         Sair
       </button>

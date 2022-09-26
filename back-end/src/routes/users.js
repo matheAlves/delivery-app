@@ -10,4 +10,9 @@ userRoute.post(
   UserController.getOneNoPassword,
 );
 
+userRoute.get(
+  '/validate',
+  UserController.loginValidate,
+);
+
 module.exports = userRoute;

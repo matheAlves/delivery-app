@@ -55,6 +55,7 @@
     }
   },
   "dependencies": {
+    "joi": "^17.6.1",
     "react-router-dom": "^6.4.0"
   }
 }
