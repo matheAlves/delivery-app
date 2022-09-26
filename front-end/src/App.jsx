@@ -7,6 +7,7 @@ import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
 import RedirectToLogin from './pages/RedirectToLogin';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
+import ClientProvider from './Provider/ClientProvider';
 
 function App() {
   return (
@@ -15,8 +16,24 @@ function App() {
         <Routes>
           <Route exact path="/login" element={ <Login /> } />
           <Route exact path="/register" element={ <Register /> } />
-          <Route exact path="/customer/products" element={ <ClientProducts /> } />
-          <Route exact path="/customer/checkout" element={ <ClientOrders /> } />
+          <Route
+            exact
+            path="/customer/products"
+            element={
+              <ClientProvider>
+                <ClientProducts />
+              </ClientProvider>
+            }
+          />
+          <Route
+            exact
+            path="/customer/checkout"
+            element={
+              <ClientProvider>
+                <ClientOrders />
+              </ClientProvider>
+            }
+          />
           <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>
       </MyProvider>

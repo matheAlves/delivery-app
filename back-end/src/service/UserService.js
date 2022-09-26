@@ -1,8 +1,20 @@
 const md5 = require('md5');
+const joi = require('joi');
 const { user: UserModel } = require('../database/models');
-// const joi = require('joi');
 
 const UserService = {
+  validateBodyLogin: async (body) => {
+    const schema = joi.object({
+      email: joi.string().email().required(),
+      password: joi.string().min(6).required(),
+    }).messages({
+      'string.empty': 'Invalid email or password.',
+      'string.required': 'Email and password are required.',
+      'string.min': 'password must be greater or equal to 6',
+    });
+    const result = await schema.validateAsync(body);
+    return result;
+  },
   getOneWichEmail: async (email) => {
     const user = await UserModel.findOne({
       where: {
@@ -19,7 +31,7 @@ const UserService = {
       where: {
         email,
       },
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password', 'id'] },
       raw: true,
     });
 

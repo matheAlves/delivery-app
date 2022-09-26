@@ -9,6 +9,12 @@ userRoute.post(
   validateCredentials,
   UserController.getOneNoPassword,
 );
+userRoute.post('/register', UserController.createUser);
+
+userRoute.get(
+  '/validate',
+  UserController.loginValidate,
+);
 
 userRoute.get('/sellers', UserController.getAllSellers);
 

@@ -40,6 +40,7 @@ function Login() {
       setErrorMessage(data.message);
     } else {
       setAuthenticated(false);
+      localStorage.setItem('user', JSON.stringify(data));
       navigate('/customer/products');
     }
   };

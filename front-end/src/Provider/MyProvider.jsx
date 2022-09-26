@@ -1,12 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// import { useNavigate } from 'react-router-dom';
 import MyContext from './MyContext';
 import fetchProducts from '../services/clientAPI';
 
 function MyProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState({});
 
-  const contextObject = useMemo(() => ({ products, setProducts }), [products]);
+  const contextObject = useMemo(() => ({ products,
+    setProducts,
+    user,
+    setUser }), [products, user]);
 
   const getProducts = async () => {
     const get = await fetchProducts();
