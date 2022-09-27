@@ -12,19 +12,6 @@ function ClientProducts() {
   const navigate = useNavigate();
   const [totalValue, setTotalValue] = useState(0);
 
-  const calculateTotalValue = useCallback(() => {
-    const calculatedTotalValue = shoppingCart.reduce((acc, product) => {
-      const partial = acc;
-      if (product.quantity !== 0) {
-        const productTotal = product.quantity * Number(product.price);
-        const partialTotal = partial + productTotal;
-        return partialTotal;
-      } return acc;
-    }, 0);
-
-    setTotalValue(calculatedTotalValue);
-  }, [shoppingCart]);
-
   const checkIsValid = useCallback(async () => {
     const url = 'http://localhost:3001/users/validate';
     const localUser = JSON.parse(localStorage.getItem('user'));
@@ -51,9 +38,8 @@ function ClientProducts() {
     checkIsValid();
   }, [setUser, navigate, checkIsValid]);
 
-  const putQuantityIntoProducts = useCallback(() => {
+  const putQuantityIntoProducts = () => {
     const storedShoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-    console.log(storedShoppingCart);
     if (!storedShoppingCart) {
       if (shoppingCart.length === 0) {
         setShoppingCart(products);
@@ -63,7 +49,22 @@ function ClientProducts() {
     } else {
       setShoppingCart(storedShoppingCart);
     }
-  }, [products, setShoppingCart, shoppingCart]);
+  };
+
+  const calculateTotalValue = () => {
+    if (!shoppingCart.quantity) {
+      putQuantityIntoProducts();
+    } const calculatedTotalValue = shoppingCart.reduce((acc, product) => {
+      const partial = acc;
+      if (product.quantity !== 0) {
+        const productTotal = product.quantity * Number(product.price);
+        const partialTotal = partial + productTotal;
+        return partialTotal;
+      } return acc;
+    }, 0);
+
+    setTotalValue(calculatedTotalValue);
+  };
 
   useEffect(() => {
     getUser();
@@ -95,7 +96,7 @@ function ClientProducts() {
           onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__checkout-bottom-value"
         >
-          {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',')}`}
+          {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',') || 0}`}
         </button>
       </section>
     </>

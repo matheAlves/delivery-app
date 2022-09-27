@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useContext } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ClientContext from './ClientContext';
 import MyContext from './MyContext';
@@ -7,23 +7,21 @@ function ClientProvider({ children }) {
   const { products } = useContext(MyContext);
   const [shoppingCart, setShoppingCart] = useState(products);
 
-  const setItemQuantity = useCallback((id, operation) => {
+  const setItemQuantity = (id, operation) => {
     const [productId] = shoppingCart.filter((product) => product.id === id);
 
     if (!operation.innerHTML) {
       productId.quantity = Number(operation.value);
     } else if (operation.innerHTML === '+') {
-      console.log(productId.quantity);
       productId.quantity += 1;
     } else if (productId.quantity > 0) {
-      console.log(productId.quantity);
       productId.quantity -= 1;
     } else {
       productId.quantity = 0;
     }
 
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-  }, [shoppingCart]);
+  };
 
   const contextObject = useMemo(() => ({
     shoppingCart,
