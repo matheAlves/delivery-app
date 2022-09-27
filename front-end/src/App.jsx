@@ -4,6 +4,7 @@ import './App.css';
 import MyProvider from './Provider/MyProvider';
 import ClientProducts from './pages/Client/Products/ClientProducts';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
+import OrderDetails from './pages/Client/OrderDetails/OrderDetails';
 import RedirectToLogin from './pages/RedirectToLogin';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
@@ -22,6 +23,15 @@ function App() {
             element={
               <ClientProvider>
                 <ClientProducts />
+              </ClientProvider>
+            }
+          />
+          <Route
+            exact
+            path="/customer/orders/:id"
+            element={
+              <ClientProvider>
+                <OrderDetails />
               </ClientProvider>
             }
           />
