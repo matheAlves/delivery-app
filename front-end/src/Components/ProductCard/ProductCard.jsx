@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
 import ClientContext from '../../Provider/ClientContext';
+import MyContext from '../../Provider/MyContext';
 
 function ProductCard({
   cardImg,
@@ -9,6 +10,7 @@ function ProductCard({
   cardId,
   calculateTotalValue,
 }) {
+  const { products } = useContext(MyContext);
   const { setItemQuantity, shoppingCart, setShoppingCart } = useContext(ClientContext);
   const [quantity, setQuantity] = useState(0);
 
@@ -34,6 +36,22 @@ function ProductCard({
       setItemQuantity(cardId, target);
     }
     calculateTotalValue();
+  };
+
+  const changeInputValue = ({ target }) => {
+    const operation = target.innerHTML;
+    let n = Number(quantity);
+    setItemQuantity(cardId, target);
+    calculateTotalValue();
+    if (operation === '+') {
+      setQuantity(n += 1);
+    } else if (operation === '-') {
+      if (n <= 0) {
+        setQuantity(0);
+      } else {
+        setQuantity(n -= 1);
+      }
+    }
   };
 
   useEffect(() => {
@@ -70,12 +88,7 @@ function ProductCard({
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${cardId}` }
-          onClick={ ({ target }) => {
-            let n = Number(quantity);
-            setQuantity(n -= 1);
-            setItemQuantity(cardId, target);
-            calculateTotalValue();
-          } }
+          onClick={ changeInputValue }
         >
           -
         </button>
@@ -93,12 +106,7 @@ function ProductCard({
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${cardId}` }
-          onClick={ ({ target }) => {
-            let n = Number(quantity);
-            setQuantity(n += 1);
-            setItemQuantity(cardId, target);
-            calculateTotalValue();
-          } }
+          onClick={ changeInputValue }
         >
           +
         </button>
