@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import MyProvider from './Provider/MyProvider';
-import ClientProducts from './pages/Client/Products/ClientProducts';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
-import RedirectToLogin from './pages/RedirectToLogin';
+// import Orders from './pages/Client/Pedidos/Orders';
+import ClientProducts from './pages/Client/Products/ClientProducts';
 import Login from './pages/Login/Login';
+import RedirectToLogin from './pages/RedirectToLogin';
 import Register from './pages/Register';
 import ClientProvider from './Provider/ClientProvider';
+import MyProvider from './Provider/MyProvider';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               </ClientProvider>
             }
           />
+          <Route exact path="/customer/orders" element={ <Orders /> } />
           <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>
       </MyProvider>

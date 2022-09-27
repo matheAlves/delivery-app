@@ -60,5 +60,12 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'sale',
     timestamps: false,
   });
+
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.user, {
+      foreignKey: 'userId', as: 'user'
+    });
+  };
+
   return Sale;
 };
