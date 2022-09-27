@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
-import Orders from './pages/Client/Pedidos/Orders';
+// import Orders from './pages/Client/Pedidos/Orders';
 import ClientProducts from './pages/Client/Products/ClientProducts';
 import Login from './pages/Login/Login';
 import RedirectToLogin from './pages/RedirectToLogin';
