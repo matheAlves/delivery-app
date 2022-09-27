@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import OrderCard from '../../../Components/OrderCard/OrderCard';
 import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
 
 function Orders() {
-  // const [orders, setOrders] = useState([]); // ver de colocar no provider
+  const [orders] = useState([]); // ver de colocar no provider
 
   return (
     <div>
@@ -11,7 +11,7 @@ function Orders() {
         <UserNavbar />
       </header>
       <div>
-        {orders.map((item) => (
+        { orders.map((item) => (
           <OrderCard
             key={ item.id }
             id={ item.id }
