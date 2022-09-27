@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import MyContext from '../../Provider/MyContext';
+import ClientContext from '../../Provider/ClientContext';
 import Items from './Items';
 
 function ItemsOrdered() {
-  const { products } = useContext(MyContext);
+  const { shoppingCart } = useContext(ClientContext);
   return (
     <table>
       <thead>
@@ -18,15 +18,17 @@ function ItemsOrdered() {
       </thead>
       <tbody>
         {
-          products.map(({ id, name, price }, index) => (
-            <Items
-              id={ index }
-              description={ name }
-              quantity={ 2 }
-              unitValue={ Number(price) }
-              key={ id }
-            />
-          ))
+          shoppingCart
+            .filter(({ quantity }) => quantity > 0)
+            .map(({ id, name, price, quantity }, index) => (
+              <Items
+                id={ index }
+                description={ name }
+                quantity={ quantity }
+                unitValue={ Number(price) }
+                key={ id }
+              />
+            ))
         }
       </tbody>
     </table>
