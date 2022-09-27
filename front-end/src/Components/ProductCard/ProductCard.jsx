@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import ClientContext from '../../Provider/ClientContext';
 
 function ProductCard({
@@ -7,22 +7,40 @@ function ProductCard({
   cardName,
   cardPrice,
   cardId,
-  cardQuantity,
   calculateTotalValue,
 }) {
-  const { setItemQuantity } = useContext(ClientContext);
-  const [quantity, setQuantity] = useState(cardQuantity || 0);
+  const { setItemQuantity, shoppingCart, setShoppingCart } = useContext(ClientContext);
+  const [quantity, setQuantity] = useState(0);
 
-  const setInputQuantity = ({ target }) => {
-    calculateTotalValue();
+  const getQuantityItem = () => {
+    const storedShoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+    if (!storedShoppingCart) {
+      if (shoppingCart.length === 0) {
+        setShoppingCart(products);
+      } else if (!Object.keys(shoppingCart[0]).includes('quantity')) {
+        setShoppingCart(products.map((product) => ({ ...product, quantity: 0 })));
+      }
+    } else {
+      setShoppingCart(storedShoppingCart);
+    }
+  };
+
+  const setInputQuantity = (target) => {
     if (target.value >= 0) {
-      setQuantity(target.value);
+      setQuantity(Number(target.value));
       setItemQuantity(cardId, target);
     } else {
       setQuantity(0);
       setItemQuantity(cardId, target);
     }
+    calculateTotalValue();
   };
+
+  useEffect(() => {
+    calculateTotalValue();
+    getQuantityItem();
+    setQuantity(shoppingCart[Number(cardId) - 1].quantity || 0);
+  }, []);
 
   return (
     <div className="card_body">
@@ -52,21 +70,35 @@ function ProductCard({
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${cardId}` }
-          onClick={ ({ target }) => setItemQuantity(cardId, target) }
+          onClick={ ({ target }) => {
+            let n = Number(quantity);
+            setQuantity(n -= 1);
+            setItemQuantity(cardId, target);
+            calculateTotalValue();
+          } }
         >
           -
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${cardId}` }
           value={ quantity }
-          type="text"
+          type="number"
+          min={ 0 }
           className="quantity"
-          onChange={ setInputQuantity }
+          onChange={ ({ target }) => {
+            setInputQuantity(target);
+            setQuantity(target.value);
+          } }
         />
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${cardId}` }
-          onClick={ ({ target }) => setItemQuantity(cardId, target) }
+          onClick={ ({ target }) => {
+            let n = Number(quantity);
+            setQuantity(n += 1);
+            setItemQuantity(cardId, target);
+            calculateTotalValue();
+          } }
         >
           +
         </button>
@@ -79,7 +111,6 @@ ProductCard.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardId: PropTypes.number.isRequired,
   cardPrice: PropTypes.string.isRequired,
-  cardQuantity: PropTypes.number.isRequired,
   cardImg: PropTypes.string.isRequired,
   calculateTotalValue: PropTypes.func.isRequired,
 };
