@@ -11,7 +11,7 @@ function ClientOrders() {
   const [totalValue, setTotalValue] = useState(0);
   const [address, setAddress] = useState('');
   const [numberAddress, setNumberAddress] = useState('');
-  const [seller, setSeller] = useState('');
+  const [seller, setSeller] = useState('Fulana Pereira');
 
   const SUCCESSFULLY_HTTP_STATUS = 201;
 
@@ -37,12 +37,15 @@ function ClientOrders() {
   };
 
   const getSellerAndUserIdFromLocalStorage = () => {
-    const [sellerId] = sellers
+    let [sellerId] = sellers
       .filter(({ name }) => name === seller)
       .map(({ id }) => id);
 
     const { id: userId } = JSON.parse(localStorage.getItem('user'));
 
+    if (!sellerId) {
+      sellerId = 2;
+    }
     return { sellerId, userId };
   };
 
@@ -77,6 +80,8 @@ function ClientOrders() {
 
     if (sale.status === SUCCESSFULLY_HTTP_STATUS) {
       navigate(`/customer/orders/${data.id}`);
+    } else {
+      console.log(data);
     }
   };
 
