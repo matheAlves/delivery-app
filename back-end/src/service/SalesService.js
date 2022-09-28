@@ -4,8 +4,7 @@ const SalesService = {
  add: async (payload) => {
     const { sales, saleProducts } = payload;
 
-    const result = await sale.create(sales);
-    const { dataValues } = result;
+    const { dataValues } = await sale.create(sales);
 
     saleProducts.forEach(async (product) => {
       const { productId, quantity } = product;
@@ -13,7 +12,7 @@ const SalesService = {
      await salesProducts.create({ productId, saleId, quantity });
     });
 
-    return result;
+    return dataValues;
   },
 };
 
