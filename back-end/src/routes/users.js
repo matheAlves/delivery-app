@@ -18,4 +18,6 @@ userRoute.get(
 
 userRoute.get('/sellers', UserController.getAllSellers);
 
+userRoute.get('/:id', UserController.getById);
+
 module.exports = userRoute;

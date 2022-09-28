@@ -19,4 +19,11 @@ export const fetchSalesProductsById = async (id) => {
   return data;
 };
 
+export const fetchSaleById = async (id) => {
+  const url = `http://localhost:3001/sales/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
+
 export default fetchProducts;
