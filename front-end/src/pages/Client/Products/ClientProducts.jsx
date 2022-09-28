@@ -93,10 +93,12 @@ function ClientProducts() {
           type="button"
           className="cartButton"
           onClick={ () => navigate('/customer/checkout') }
-          data-testid="customer_products__checkout-bottom-value"
-          disabled={ totalValue === 0 }
+          data-testid="customer_products__button-cart"
+          disabled={ (!totalValue > 0) }
         >
-          {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',') || 0}`}
+          <p data-testid="customer_products__checkout-bottom-value">
+            {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',') || 0}`}
+          </p>
         </button>
       </section>
     </>
