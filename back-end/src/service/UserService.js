@@ -64,7 +64,7 @@ const UserService = {
       where: {
         role: 'seller',
       },
-      attributes: { exclude: ['password', 'id', 'email', 'role'] },
+      attributes: { exclude: ['password', 'email', 'role'] },
       raw: true,
     });
 
