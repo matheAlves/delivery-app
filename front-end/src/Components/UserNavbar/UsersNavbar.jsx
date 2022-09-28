@@ -9,6 +9,7 @@ function UserNavbar() {
 
   const logout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('shoppingCart');
     setUser('');
     navigate('/login');
   };

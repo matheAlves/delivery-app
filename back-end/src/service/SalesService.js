@@ -4,16 +4,17 @@ const SalesService = {
  add: async (payload) => {
     const { sales, saleProducts } = payload;
 
-    const result = await sale.create(sales);
-    const { dataValues } = result;
+    const { dataValues } = await sale.create(sales);
 
-    saleProducts.forEach(async (product) => {
+    const map = saleProducts.map((product) => {
       const { productId, quantity } = product;
       const saleId = dataValues.id;
-     await salesProducts.create({ productId, saleId, quantity });
+      return salesProducts.create({ productId, saleId, quantity });
     });
 
-    return result;
+    await Promise.all(map);
+
+    return dataValues;
   },
 
   getOrders: async () => {

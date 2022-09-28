@@ -1,5 +1,6 @@
 const authService = require('../service/authService');
 const UserService = require('../service/UserService');
+const { user: UserModel } = require('../database/models/index');
 
 const UserController = {
   getOneNoPassword: async (req, res) => {
@@ -30,6 +31,11 @@ const UserController = {
     const readToken = authService.readToken(authorization);
     const { body: { role } } = readToken;
     res.status(200).json({ role });
+  },
+
+  getById: async (req, res) => {
+    const result = await UserModel.findByPk(req.params.id);
+    res.status(200).json(result);
   },
 };
 
