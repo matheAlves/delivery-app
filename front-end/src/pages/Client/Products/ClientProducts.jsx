@@ -86,7 +86,6 @@ function ClientProducts() {
             cardId={ itm.id }
             key={ itm.id }
             cardImg={ itm.urlImage }
-            cardQuantity={ itm.quantity }
             calculateTotalValue={ calculateTotalValue }
           />
         ))}
