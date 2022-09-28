@@ -25,6 +25,7 @@ function ClientProducts() {
 
     if (!data.role) {
       localStorage.removeItem('user');
+      localStorage.removeItem('shoppingCart');
       navigate('/login');
     }
   }, [navigate]);
@@ -64,6 +65,10 @@ function ClientProducts() {
       } return acc;
     }, 0);
     setTotalValue(calculatedTotalValue);
+    localStorage.setItem(
+      'totalValue',
+      (calculatedTotalValue).toFixed(2).replace('.', ','),
+    );
   };
 
   useEffect(() => {
