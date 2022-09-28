@@ -54,15 +54,15 @@ function ClientProducts() {
   const calculateTotalValue = () => {
     if (!shoppingCart.quantity) {
       putQuantityIntoProducts();
-    } const calculatedTotalValue = shoppingCart.reduce((acc, product) => {
+    }
+    const calculatedTotalValue = shoppingCart.reduce((acc, product) => {
       const partial = acc;
-      if (product.quantity !== 0) {
-        const productTotal = product.quantity * Number(product.price);
+      if (product.quantity > 0) {
+        const productTotal = Number(product.quantity) * Number(product.price);
         const partialTotal = partial + productTotal;
         return partialTotal;
       } return acc;
     }, 0);
-
     setTotalValue(calculatedTotalValue);
   };
 
@@ -94,6 +94,7 @@ function ClientProducts() {
           className="cartButton"
           onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__checkout-bottom-value"
+          disabled={ totalValue === 0 }
         >
           {`Ver carrinho: R$ ${totalValue.toFixed(2).replace('.', ',') || 0}`}
         </button>
