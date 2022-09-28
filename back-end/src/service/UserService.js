@@ -33,7 +33,7 @@ const UserService = {
       where: {
         email,
       },
-      attributes: { exclude: ['password', 'id'] },
+      attributes: { exclude: ['password'] },
       raw: true,
     });
 
@@ -63,7 +63,7 @@ const UserService = {
       where: {
         role: 'seller',
       },
-      attributes: { exclude: ['password', 'id', 'email', 'role'] },
+      attributes: { exclude: ['password', 'email', 'role'] },
       raw: true,
     });
 

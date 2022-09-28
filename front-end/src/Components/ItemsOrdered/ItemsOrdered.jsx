@@ -1,9 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ClientContext from '../../Provider/ClientContext';
 import Items from './Items';
 
 function ItemsOrdered() {
   const { shoppingCart } = useContext(ClientContext);
+  const [soldItems, setSoldItems] = useState([]);
+
+  const getItemsFromLocalStorage = () => {
+    const items = JSON.parse(localStorage.getItem('shoppingCart'));
+
+    if (!items) {
+      setSoldItems(shoppingCart);
+    } else {
+      setSoldItems(items);
+    }
+  };
+
+  useEffect(() => {
+    getItemsFromLocalStorage();
+  }, []);
+
   return (
     <table>
       <thead>
@@ -18,7 +34,7 @@ function ItemsOrdered() {
       </thead>
       <tbody>
         {
-          shoppingCart
+          soldItems
             .filter(({ quantity }) => quantity > 0)
             .map(({ id, name, price, quantity }, index) => (
               <Items

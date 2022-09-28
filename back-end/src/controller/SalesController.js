@@ -1,8 +1,11 @@
 const SalesService = require('../service/SalesService');
 const { sale, salesProducts } = require('../database/models/index');
+const authService = require('../service/authService');
 
 const SalesController = {
   add: async (req, res) => {
+    const { Authorization: token } = req.headers;
+    authService.readToken(token);
     const result = await SalesService.add(req.body);
     res.status(201).json(result);
   },
