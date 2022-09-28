@@ -16,6 +16,11 @@ const SalesController = {
     const result = await salesProducts.findAll({ where: { saleId: req.params.id } });
     res.status(200).json(result);
   },
+
+  getOrders: async (req, res) => {
+    const result = await SalesService.getOrders();
+    res.status(200).json(result);
+  },
 };
 
 module.exports = SalesController;

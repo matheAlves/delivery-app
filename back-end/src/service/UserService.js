@@ -33,7 +33,7 @@ const UserService = {
       where: {
         email,
       },
-      attributes: { exclude: ['password', 'id'] },
+      attributes: { exclude: ['password'] },
       raw: true,
     });
 
@@ -48,9 +48,10 @@ const UserService = {
     }
 
     const newPassword = md5(password);
-    await UserModel.create({ name, email, password: newPassword, role });
+    const { id } = await UserModel.create({ name, email, password: newPassword, role });
     const token = authService.createToken({ name, email, role });
     return {
+      id,
       name,
       email,
       role,

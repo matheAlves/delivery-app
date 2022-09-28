@@ -16,6 +16,11 @@ const SalesService = {
 
     return dataValues;
   },
+
+  getOrders: async () => {
+    const result = await sale.findAll();
+    return result;
+  },
 };
 
 module.exports = SalesService;
