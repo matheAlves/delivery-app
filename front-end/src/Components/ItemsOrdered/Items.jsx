@@ -22,12 +22,12 @@ function Items({ id, description, quantity, unitValue }) {
       <td
         data-testid={ `customer_checkout__element-order-table-unit-price-${id}` }
       >
-        { `R$ ${unitValue.toFixed(2)}` }
+        { `R$ ${unitValue.toFixed(2).replace('.', ',')}` }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${id}` }
       >
-        { `R$ ${(quantity * unitValue).toFixed(2)}` }
+        { `R$ ${(quantity * unitValue).toFixed(2).replace('.', ',')}` }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${id}` }
