@@ -6,11 +6,13 @@ const SalesService = {
 
     const { dataValues } = await sale.create(sales);
 
-    saleProducts.forEach(async (product) => {
+    const map = saleProducts.map((product) => {
       const { productId, quantity } = product;
       const saleId = dataValues.id;
-     await salesProducts.create({ productId, saleId, quantity });
+      return salesProducts.create({ productId, saleId, quantity });
     });
+
+    await Promise.all(map);
 
     return dataValues;
   },
