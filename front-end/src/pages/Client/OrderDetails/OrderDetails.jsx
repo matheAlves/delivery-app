@@ -34,24 +34,26 @@ function OrderDetails() {
         {id}
         ;
       </h1>
-      {order && <>
-        <span
-          data-testid="customer_order_details__element-order-details-label-seller-name"
-        >
-          {`P.Vend: ${order.seller}`}
-        </span>
-        {' '}
-        <span
-          data-testid="customer_order_details__element-order-details-label-order-date"
-        >
-          {order.saleDate}
-        </span>
-        {' '}
-        <span>
-          {order.status}
-        </span>
-        {' '}
-      </>}
+      {order
+      && (
+        <>
+          <span
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {`P.Vend: ${order.seller}`}
+          </span>
+          {' '}
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            {order.saleDate}
+          </span>
+          {' '}
+          <span>
+            {order.status}
+          </span>
+          {' '}
+        </>)}
       <button
         data-testid="customer_order_details__button-delivery-check"
         type="button"

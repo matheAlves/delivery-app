@@ -24,33 +24,32 @@ function OrderDetailsTable(props) {
   return (
     <div>
       {order
-      && <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            order.map((product, index) => (
-              <OrderDetailsItems
-                index={ index }
-                description={ product.name }
-                quantity={ product.quantity }
-                price={ Number(product.price) }
-                key={ index }
-              />
-            ))
-          }
-        </tbody>
-         </table>}
-
+      && (
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              order.map((product, index) => (
+                <OrderDetailsItems
+                  index={ index }
+                  description={ product.name }
+                  quantity={ product.quantity }
+                  price={ Number(product.price) }
+                  key={ index }
+                />
+              ))
+            }
+          </tbody>
+        </table>)}
     </div>
-
   );
 }
 
