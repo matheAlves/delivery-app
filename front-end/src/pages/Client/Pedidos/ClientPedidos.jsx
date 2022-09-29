@@ -6,13 +6,11 @@ import getSellers from '../../../services/userAPI';
 
 function ClientOrders() {
   const navigate = useNavigate();
-
   const [sellers, setSellers] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
   const [address, setAddress] = useState('');
   const [numberAddress, setNumberAddress] = useState('');
   const [seller, setSeller] = useState('Fulana Pereira');
-
   const SUCCESSFULLY_HTTP_STATUS = 201;
 
   const setSellersFromDB = async () => {
@@ -20,11 +18,11 @@ function ClientOrders() {
     setSellers(sellersFound);
   };
 
-  const getTotalValueFromLocalStorage = () => {
-    const totalValueStored = localStorage.getItem('totalValue');
-
-    setTotalValue(totalValueStored);
-  };
+  function getTotalValue() {
+    const data = localStorage.getItem('totalValue');
+    const converted = data.replace(',', '.');
+    setTotalValue(Number(converted));
+  }
 
   const getItemsFromLocalStorageToRequest = () => {
     const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -59,7 +57,7 @@ function ClientOrders() {
     const url = 'http://localhost:3001/sales';
     const sales = {
       ...getSellerAndUserIdFromLocalStorage(),
-      totalPrice: totalValue.replace(',', '.'),
+      totalPrice: totalValue,
       deliveryAddress: address,
       deliveryNumber: numberAddress,
       saleDate: new Date(),
@@ -87,7 +85,7 @@ function ClientOrders() {
 
   useEffect(() => {
     setSellersFromDB();
-    getTotalValueFromLocalStorage();
+    getTotalValue();
   }, []);
 
   return (
@@ -99,12 +97,6 @@ function ClientOrders() {
       <section>
         <h2>Finalizar Pedido</h2>
         <ItemsOrdered />
-        <h2 data-testid="customer_checkout__element-order-total-price">
-          <span>Total: R$ </span>
-          <span data-testid="customer_checkout__element-order-total-price">
-            { totalValue }
-          </span>
-        </h2>
       </section>
 
       <section>
