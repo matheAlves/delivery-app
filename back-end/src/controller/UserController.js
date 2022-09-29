@@ -19,6 +19,15 @@ const UserController = {
     return res.status(201).json(newUser);
   },
 
+  adminCreateUser: async (req, res) => {
+    const { name, email, password, role } = req.body;
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).json({ message: 'Missing token' });
+    authService.readToken(authorization);
+    const newUser = await UserService.adminCreateUser({ name, email, password, role });
+    return res.status(201).json(newUser);
+  },
+
   getAllSellers: async (_req, res) => {
     const users = await UserService.getAllSellers();
     
