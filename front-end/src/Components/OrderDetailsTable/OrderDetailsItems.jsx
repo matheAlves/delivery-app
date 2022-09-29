@@ -5,27 +5,27 @@ function OrderDetailsItems({ index, description, quantity, price }) {
   return (
     <tr>
       <td
-        data-testid="customer_checkout__element-order-table-item-number-1"
+        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
       >
         { index + 1 }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-name-1"
+        data-testid={ `customer_order_details__element-order-table-name-${index}` }
       >
         { description }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-quantity-1"
+        data-testid={ `customer_order_details__element-order-table-quantity-${index}` }
       >
         { quantity }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-unit-price-1"
+        data-testid={ `customer_order_details__element-order-table-unit-price-${index}` }
       >
         { `R$ ${price.toFixed(2)}` }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-sub-total-<index>"
+        data-testid={ `customer_order_details__element-order-table-sub-total-${index}` }
       >
         { `R$ ${(quantity * price).toFixed(2)}` }
       </td>
