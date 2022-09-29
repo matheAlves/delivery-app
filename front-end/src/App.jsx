@@ -54,6 +54,9 @@ function App() {
               </ClientProvider>
             }
           />
+          <Route
+            path="/seller/orders"
+           />
           <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>
       </MyProvider>
