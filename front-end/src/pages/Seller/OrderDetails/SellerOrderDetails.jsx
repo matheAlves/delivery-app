@@ -7,7 +7,8 @@ import { fetchUserById } from '../../../services/userAPI';
 
 function SellerOrderDetails() {
   const [order, setOrder] = useState({});
-  const [btnDisabled] = useState(false);
+  const [prepareOrderBtn, setPrepareOrderBtn] = useState(true);
+  const [deliverOrderBtn, setDeliverOrderBtn] = useState(true);
 
   const { id } = useParams();
 
@@ -20,8 +21,31 @@ function SellerOrderDetails() {
     data.seller = name;
     data.totalPrice = data.totalPrice.replace('.', ',');
 
+    if (data.status === 'Pendente') {
+      setPrepareOrderBtn(false);
+      setDeliverOrderBtn(true);
+    } else if (data.status === 'Preparando') {
+      setPrepareOrderBtn(true);
+      setDeliverOrderBtn(false);
+    } else if (data.status === 'Em Trânsito' || data.status === 'Entregue'
+    || data.status === 'Entregue') {
+      setPrepareOrderBtn(true);
+      setDeliverOrderBtn(true);
+    }
     setOrder(data);
   };
+
+  async function changeOrderStatus(newStatus) {
+    await fetch('http://localhost:3001/sales', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        orderId: id,
+        newStatus,
+      }),
+    });
+    getSaleData();
+  }
 
   useEffect(() => {
     getSaleData();
@@ -58,14 +82,16 @@ function SellerOrderDetails() {
       <button
         data-testid="seller_order_details__button-preparing-check"
         type="button"
-        disabled={ btnDisabled }
+        disabled={ prepareOrderBtn }
+        onClick={ () => changeOrderStatus('Preparando') }
       >
         Preparar pedido
       </button>
       <button
         data-testid="seller_order_details__button-dispatch-check"
         type="button"
-        disabled={ btnDisabled }
+        disabled={ deliverOrderBtn }
+        onClick={ () => changeOrderStatus('Em Trânsito') }
       >
         Saiu para entrega
       </button>

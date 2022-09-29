@@ -7,7 +7,7 @@ import { fetchUserById } from '../../../services/userAPI';
 
 function OrderDetails() {
   const [order, setOrder] = useState({});
-  const [btnDisabled] = useState(true);
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const { id } = useParams();
 
@@ -20,8 +20,25 @@ function OrderDetails() {
     data.seller = name;
     data.totalPrice = data.totalPrice.replace('.', ',');
 
+    if (data.status === 'Em Trânsito') {
+      setBtnDisabled(false);
+    }
+
     setOrder(data);
   };
+
+  async function changeOrderStatus() {
+    await fetch('http://localhost:3001/sales', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        orderId: id,
+        newStatus: 'Entregue',
+      }),
+    });
+    setBtnDisabled(true);
+    getSaleData();
+  }
 
   useEffect(() => {
     getSaleData();
@@ -65,6 +82,7 @@ function OrderDetails() {
         data-testid="customer_order_details__button-delivery-check"
         type="button"
         disabled={ btnDisabled }
+        onClick={ changeOrderStatus }
       >
         Marcar como entregue
       </button>
