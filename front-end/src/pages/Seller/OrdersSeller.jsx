@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import OrderCardClient from '../../../Components/OrderCard/OrderCardClient';
-import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
-import ClientContext from '../../../Provider/ClientContext';
+import OrderCardSeller from '../../Components/OrderCard/OrderCardSeller';
+import UserNavbar from '../../Components/UserNavbar/UsersNavbar';
 
-function Orders() {
+function OrdersSeller() {
   const { orders, fetchOrders } = useContext(ClientContext);
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -11,7 +10,7 @@ function Orders() {
     fetchOrders();
   }, []);
 
-  const filterOrders = orders.filter((item) => item.userId === user.id);
+  const filterOrders = orders.filter((item) => item.sellerId === user.id);
 
   return (
     <div>
@@ -21,12 +20,14 @@ function Orders() {
       <div>
         { filterOrders.length === 0 ? 'Você ainda não tem pedidos finalizados'
           : orders.map((item) => (
-            <OrderCardClient
+            <OrderCardSeller
               key={ item.id }
               id={ item.id }
               status={ item.status }
               saleDate={ item.saleDate }
               totalPrice={ item.totalPrice }
+              deliveryAddress={ item.deliveryAddress }
+              deliveryNumber={ item.deliveryNumber }
             />
           ))}
       </div>
@@ -34,4 +35,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default OrdersSeller;
