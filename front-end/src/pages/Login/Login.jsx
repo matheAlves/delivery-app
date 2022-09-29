@@ -19,6 +19,7 @@ function Login() {
     if (user) {
       if (user.role === 'administrator') navigate('/admin/manage');
       if (user.role === 'customer') navigate('/customer/products');
+      if (user.role === 'seller') navigate('/seller/orders');
     }
 
     if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(email)) {
@@ -47,19 +48,21 @@ function Login() {
     } else {
       setAuthenticated(false);
       localStorage.setItem('user', JSON.stringify(data));
-      if (data.role === 'administrator') {
-        navigate('/admin/manage');
-      } else {
-        navigate('/customer/products');
-      }
+    }
+    if (data.role === 'seller') {
+      navigate('/seller/orders');
+    } else if (data.role === 'administrator') {
+      navigate('/admin/manage');
+    } else {
+      navigate('/customer/products');
     }
   };
 
   return (
     <form className="form display-flex">
-      { authenticated && (
+      {authenticated && (
         <p data-testid="common_login__element-invalid-email">
-          { errorMessage }
+          {errorMessage}
         </p>
       )}
       <label
