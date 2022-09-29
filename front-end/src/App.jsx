@@ -10,6 +10,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register';
 import ClientProvider from './Provider/ClientProvider';
 import MyProvider from './Provider/MyProvider';
+import Admin from './pages/Admin/Admin';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <MyProvider>
         <Routes>
           <Route exact path="/login" element={ <Login /> } />
+          <Route exact path="/admin/manage" element={ <Admin /> } />
           <Route exact path="/register" element={ <Register /> } />
           <Route
             exact
