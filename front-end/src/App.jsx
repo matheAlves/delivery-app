@@ -46,7 +46,15 @@ function App() {
               </ClientProvider>
             }
           />
-          <Route exact path="/customer/orders" element={ <Orders /> } />
+          <Route
+            exact
+            path="/customer/orders"
+            element={
+              <ClientProvider>
+                <Orders />
+              </ClientProvider>
+            }
+          />
           <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
           <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>

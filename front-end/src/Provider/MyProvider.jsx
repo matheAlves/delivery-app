@@ -15,7 +15,8 @@ function MyProvider({ children }) {
 
   const getProducts = async () => {
     const get = await fetchProducts();
-    setProducts(get);
+    const addQuantity = get.map((product) => ({ ...product, quantity: 0 }));
+    setProducts(addQuantity);
   };
 
   useEffect(() => {

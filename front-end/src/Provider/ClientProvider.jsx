@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ClientContext from './ClientContext';
 import MyContext from './MyContext';
@@ -28,6 +28,15 @@ function ClientProvider({ children }) {
     setShoppingCart,
     setItemQuantity,
   }), [shoppingCart, setItemQuantity]);
+
+  useEffect(() => {
+    if (!localStorage.getItem('shoppingCart')) {
+      setShoppingCart(products);
+      console.log(shoppingCart);
+      localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+      console.log(localStorage.getItem('shoppingCart'));
+    }
+  }, []);
 
   return (
     <ClientContext.Provider value={ contextObject }>
