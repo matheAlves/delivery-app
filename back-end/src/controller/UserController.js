@@ -18,7 +18,8 @@ const UserController = {
     const newUser = await UserService.createUser({ name, email, password, role });
     return res.status(201).json(newUser);
   },
-
+  // test
+  
   adminCreateUser: async (req, res) => {
     const { name, email, password, role } = req.body;
     const { authorization } = req.headers;
