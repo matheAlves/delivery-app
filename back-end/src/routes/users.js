@@ -20,4 +20,6 @@ userRoute.get('/sellers', UserController.getAllSellers);
 
 userRoute.get('/:id', UserController.getById);
 
+userRoute.post('/admin', UserController.adminCreateUser);
+
 module.exports = userRoute;
