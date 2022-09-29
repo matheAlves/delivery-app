@@ -20,7 +20,7 @@ function Orders() {
       </header>
       <div>
         { filterOrders.length === 0 ? 'Você ainda não tem pedidos finalizados'
-          : orders.map((item) => (
+          : filterOrders.map((item) => (
             <OrderCardClient
               key={ item.id }
               id={ item.id }
