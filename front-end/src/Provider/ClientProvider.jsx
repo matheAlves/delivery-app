@@ -1,11 +1,12 @@
-import React, { useState, useMemo, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import ClientContext from './ClientContext';
 import MyContext from './MyContext';
 
 function ClientProvider({ children }) {
   const { products } = useContext(MyContext);
   const [shoppingCart, setShoppingCart] = useState(products);
+  const [orders, setOrders] = useState([]);
 
   const setItemQuantity = (id, operation) => {
     const [productId] = shoppingCart.filter((product) => product.id === id);
@@ -23,18 +24,27 @@ function ClientProvider({ children }) {
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
   };
 
+  const fetchOrders = async () => {
+    const result = await fetch('http://localhost:3001/sales', {
+      method: 'GET',
+    });
+    const data = await result.json();
+    setOrders(data);
+  };
+
   const contextObject = useMemo(() => ({
     shoppingCart,
     setShoppingCart,
     setItemQuantity,
-  }), [shoppingCart, setItemQuantity]);
+    orders,
+    setOrders,
+    fetchOrders,
+  }), [shoppingCart, setItemQuantity, orders]);
 
   useEffect(() => {
     if (!localStorage.getItem('shoppingCart')) {
       setShoppingCart(products);
-      console.log(shoppingCart);
       localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-      console.log(localStorage.getItem('shoppingCart'));
     }
   }, []);
 
