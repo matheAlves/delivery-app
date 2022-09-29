@@ -59,6 +59,24 @@ const UserService = {
     };
   },
 
+  adminCreateUser: async ({ name, email, password, role }) => {
+    const emailExists = await UserModel.findOne({ where: { email } });
+    const nameExists = await UserModel.findOne({ where: { name } });
+
+    if (emailExists !== null || nameExists !== null) {
+      throw new Error('User already exists');
+    }
+
+    const newPassword = md5(password);
+    const { id } = await UserModel.create({ name, email, password: newPassword, role });
+    return {
+      id,
+      name,
+      email,
+      role,
+    };
+  },
+
   getAllSellers: async () => {
     const user = await UserModel.findAll({
       where: {

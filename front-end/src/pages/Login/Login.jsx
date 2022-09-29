@@ -16,8 +16,10 @@ function Login() {
     const MIN_PASSWORD_LENGTH = 6;
     const loginRegex = /\S+@\S+\.com/;
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user.role === 'administrator') navigate('/admin/manage');
-    else navigate('/customer/products');
+    if (user) {
+      if (user.role === 'administrator') navigate('/admin/manage');
+      if (user.role === 'customer') navigate('/customer/products');
+    }
 
     if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(email)) {
       setValid(true);

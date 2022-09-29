@@ -57,6 +57,7 @@ function App() {
             }
           />
           <Route exact path="/" element={ <RedirectToLogin /> } />
+          <Route exact path="/admin/manage" element={ <Admin /> } />
         </Routes>
       </MyProvider>
     </BrowserRouter>
