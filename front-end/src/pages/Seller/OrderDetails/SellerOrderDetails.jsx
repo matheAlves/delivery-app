@@ -5,9 +5,10 @@ import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
 import { fetchSaleById } from '../../../services/clientAPI';
 import { fetchUserById } from '../../../services/userAPI';
 
-function OrderDetails() {
+function SellerOrderDetails() {
   const [order, setOrder] = useState({});
-  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [prepareOrderBtn, setPrepareOrderBtn] = useState(true);
+  const [deliverOrderBtn, setDeliverOrderBtn] = useState(true);
 
   const { id } = useParams();
 
@@ -20,23 +21,29 @@ function OrderDetails() {
     data.seller = name;
     data.totalPrice = data.totalPrice.replace('.', ',');
 
-    if (data.status === 'Em Trânsito') {
-      setBtnDisabled(false);
+    if (data.status === 'Pendente') {
+      setPrepareOrderBtn(false);
+      setDeliverOrderBtn(true);
+    } else if (data.status === 'Preparando') {
+      setPrepareOrderBtn(true);
+      setDeliverOrderBtn(false);
+    } else if (data.status === 'Em Trânsito' || data.status === 'Entregue'
+    || data.status === 'Entregue') {
+      setPrepareOrderBtn(true);
+      setDeliverOrderBtn(true);
     }
-
     setOrder(data);
   };
 
-  async function changeOrderStatus() {
+  async function changeOrderStatus(newStatus) {
     await fetch('http://localhost:3001/sales', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         orderId: id,
-        newStatus: 'Entregue',
+        newStatus,
       }),
     });
-    setBtnDisabled(true);
     getSaleData();
   }
 
@@ -48,7 +55,7 @@ function OrderDetails() {
     <>
       <UserNavbar />
       <h1
-        data-testid="customer_order_details__element-order-details-label-order-id"
+        data-testid="seller_order_details__element-order-details-label-order-id"
       >
         Pedido
         {' '}
@@ -59,19 +66,13 @@ function OrderDetails() {
       && (
         <>
           <span
-            data-testid="customer_order_details__element-order-details-label-seller-name"
-          >
-            {`P.Vend: ${order.seller}`}
-          </span>
-          {' '}
-          <span
-            data-testid="customer_order_details__element-order-details-label-order-date"
+            data-testid="seller_order_details__element-order-details-label-order-date"
           >
             {order.saleDate}
           </span>
           {' '}
           <span
-            data-testid={ 'customer_order_details__element'
+            data-testid={ 'seller_order_details__element'
             + '-order-details-label-delivery-status' }
           >
             {order.status}
@@ -79,16 +80,24 @@ function OrderDetails() {
           {' '}
         </>)}
       <button
-        data-testid="customer_order_details__button-delivery-check"
+        data-testid="seller_order_details__button-preparing-check"
         type="button"
-        disabled={ btnDisabled }
-        onClick={ changeOrderStatus }
+        disabled={ prepareOrderBtn }
+        onClick={ () => changeOrderStatus('Preparando') }
       >
-        Marcar como entregue
+        Preparar pedido
+      </button>
+      <button
+        data-testid="seller_order_details__button-dispatch-check"
+        type="button"
+        disabled={ deliverOrderBtn }
+        onClick={ () => changeOrderStatus('Em Trânsito') }
+      >
+        Saiu para entrega
       </button>
       <OrderDetailsTable orderId={ Number(id) } />
       <h1
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid="seller_order_details__element-order-total-price"
       >
         {order.totalPrice}
       </h1>
@@ -97,4 +106,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default SellerOrderDetails;
