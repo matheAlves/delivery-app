@@ -40,7 +40,6 @@ function Login() {
     });
 
     const data = await result.json();
-    console.log(data);
 
     if (result.status !== SUCCESSFULLY_HTTP_STATUS) {
       setAuthenticated(true);
@@ -48,13 +47,13 @@ function Login() {
     } else {
       setAuthenticated(false);
       localStorage.setItem('user', JSON.stringify(data));
-    }
-    if (data.role === 'seller') {
-      navigate('/seller/orders');
-    } else if (data.role === 'administrator') {
-      navigate('/admin/manage');
-    } else {
-      navigate('/customer/products');
+      if (data.role === 'seller') {
+        navigate('/seller/orders');
+      } else if (data.role === 'administrator') {
+        navigate('/admin/manage');
+      } else {
+        navigate('/customer/products');
+      }
     }
   };
 
