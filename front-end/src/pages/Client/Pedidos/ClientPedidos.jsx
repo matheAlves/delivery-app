@@ -111,7 +111,6 @@ function ClientOrders() {
             value={ seller }
             onChange={ ({ target: { value } }) => setSeller(value) }
           >
-            <option disabled={ !!seller }>Selecione uma opção...</option>
             {
               sellers.map(({ name }) => (
                 <option key={ name } value={ name }>{ name }</option>
