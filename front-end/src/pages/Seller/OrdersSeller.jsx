@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import OrderCardSeller from '../../Components/OrderCard/OrderCardSeller';
 import UserNavbar from '../../Components/UserNavbar/UsersNavbar';
+import ClientContext from '../../Provider/ClientContext';
 
 function OrdersSeller() {
   const { orders, fetchOrders } = useContext(ClientContext);
