@@ -1,37 +1,71 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ClientContext from '../../Provider/ClientContext';
 import Items from './Items';
 
 function ItemsOrdered() {
-  const { shoppingCart } = useContext(ClientContext);
+  const { shoppingCart, setShoppingCart } = useContext(ClientContext);
+  const [totalValue, setTotalValue] = useState(0);
+
+  function getTotalValue() {
+    const data = localStorage.getItem('totalValue');
+    const converted = data.replace(',', '.');
+    setTotalValue(Number(converted));
+  }
+
+  const removeCartItem = (e) => {
+    const allItems = JSON.parse(localStorage.getItem('shoppingCart'));
+    const [find] = allItems.filter((c) => c.id === Number(e.target.id));
+    const result = (Number(totalValue) - Number(find.quantity * find.price)).toFixed(2);
+    setTotalValue(result);
+    find.quantity = 0;
+    allItems.splice(e.target.id - 1, 1, find);
+    setShoppingCart(allItems);
+    localStorage.setItem('shoppingCart', JSON.stringify(allItems));
+    localStorage.setItem('totalValue', (result).replace('.', ','));
+  };
+
+  useEffect(() => {
+    getTotalValue();
+  }, []);
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-          <th>Remover Item</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          shoppingCart
-            .filter(({ quantity }) => quantity > 0)
-            .map(({ id, name, price, quantity }, index) => (
-              <Items
-                id={ index }
-                description={ name }
-                quantity={ quantity }
-                unitValue={ Number(price) }
-                key={ id }
-              />
-            ))
-        }
-      </tbody>
-    </table>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            shoppingCart
+              .filter(({ quantity }) => quantity > 0)
+              .map(({ id, name, price, quantity }, index) => (
+                <Items
+                  id={ id }
+                  description={ name }
+                  quantity={ quantity }
+                  unitValue={ Number(price) }
+                  itemNumber={ index }
+                  key={ index }
+                  removeCartItem={ removeCartItem }
+                />
+              ))
+          }
+        </tbody>
+      </table>
+      <h2>
+        <span>Total: R$ </span>
+        <span data-testid="customer_checkout__element-order-total-price">
+          {Number(totalValue).toFixed(2).replace('.', ',')}
+        </span>
+      </h2>
+    </div>
   );
 }
 

@@ -5,22 +5,14 @@ import getSellers from '../../../services/userAPI';
 
 function ClientOrders() {
   const [sellers, setSellers] = useState([]);
-  const [totalValue, setTotalValue] = useState(0);
 
   const setSellersFromDB = async () => {
     const sellersFound = await getSellers();
     setSellers(sellersFound);
   };
 
-  const getTotalValueFromLocalStorage = () => {
-    const totalValueStored = localStorage.getItem('totalValue');
-
-    setTotalValue(totalValueStored);
-  };
-
   useEffect(() => {
     setSellersFromDB();
-    getTotalValueFromLocalStorage();
   }, []);
 
   return (
@@ -32,12 +24,6 @@ function ClientOrders() {
       <section>
         <h2>Finalizar Pedido</h2>
         <ItemsOrdered />
-        <h2 data-testid="customer_checkout__element-order-total-price">
-          <span>Total: R$ </span>
-          <span data-testid="customer_checkout__element-order-total-price">
-            { totalValue }
-          </span>
-        </h2>
       </section>
 
       <section>
