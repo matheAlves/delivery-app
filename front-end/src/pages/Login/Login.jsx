@@ -15,13 +15,14 @@ function Login() {
   useEffect(() => {
     const MIN_PASSWORD_LENGTH = 6;
     const loginRegex = /\S+@\S+\.com/;
+    if (localStorage.getItem('user')) navigate('/customer/products');
 
     if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(email)) {
       setValid(true);
     } else {
       setValid(false);
     }
-  }, [email, password]);
+  }, [email, password, navigate]);
 
   const login = async () => {
     const result = await fetch('http://localhost:3001/users', {
