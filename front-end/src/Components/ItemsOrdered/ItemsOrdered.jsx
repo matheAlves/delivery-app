@@ -3,8 +3,19 @@ import ClientContext from '../../Provider/ClientContext';
 import Items from './Items';
 
 function ItemsOrdered() {
-  const { shoppingCart, setShoppingCart } = useContext(ClientContext);
+  const { shoppingCart } = useContext(ClientContext);
   const [totalValue, setTotalValue] = useState(0);
+  const [soldItems, setSoldItems] = useState([]);
+
+  const getItemsFromLocalStorage = () => {
+    const items = JSON.parse(localStorage.getItem('shoppingCart'));
+
+    if (!items) {
+      setSoldItems(shoppingCart);
+    } else {
+      setSoldItems(items);
+    }
+  };
 
   function getTotalValue() {
     const data = localStorage.getItem('totalValue');
@@ -13,19 +24,19 @@ function ItemsOrdered() {
   }
 
   const removeCartItem = (e) => {
-    const allItems = JSON.parse(localStorage.getItem('shoppingCart'));
-    const [find] = allItems.filter((c) => c.id === Number(e.target.id));
+    const [find] = soldItems.filter((c) => c.id === Number(e.target.id));
     const result = (Number(totalValue) - Number(find.quantity * find.price)).toFixed(2);
     setTotalValue(result);
     find.quantity = 0;
-    allItems.splice(e.target.id - 1, 1, find);
-    setShoppingCart(allItems);
-    localStorage.setItem('shoppingCart', JSON.stringify(allItems));
+    soldItems.splice(e.target.id - 1, 1, find);
+    setSoldItems(soldItems);
+    localStorage.setItem('shoppingCart', JSON.stringify(soldItems));
     localStorage.setItem('totalValue', (result).replace('.', ','));
   };
 
   useEffect(() => {
     getTotalValue();
+    getItemsFromLocalStorage();
   }, []);
 
   return (
@@ -43,7 +54,7 @@ function ItemsOrdered() {
         </thead>
         <tbody>
           {
-            shoppingCart
+            soldItems
               .filter(({ quantity }) => quantity > 0)
               .map(({ id, name, price, quantity }, index) => (
                 <Items
