@@ -15,7 +15,12 @@ function Login() {
   useEffect(() => {
     const MIN_PASSWORD_LENGTH = 6;
     const loginRegex = /\S+@\S+\.com/;
-    if (localStorage.getItem('user')) navigate('/customer/products');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      if (user.role === 'administrator') navigate('/admin/manage');
+      if (user.role === 'customer') navigate('/customer/products');
+      if (user.role === 'seller') navigate('/seller/orders');
+    }
 
     if (password.length >= MIN_PASSWORD_LENGTH && loginRegex.test(email)) {
       setValid(true);
@@ -35,6 +40,7 @@ function Login() {
     });
 
     const data = await result.json();
+    console.log(data);
 
     if (result.status !== SUCCESSFULLY_HTTP_STATUS) {
       setAuthenticated(true);
@@ -45,6 +51,8 @@ function Login() {
     }
     if (data.role === 'seller') {
       navigate('/seller/orders');
+    } else if (data.role === 'administrator') {
+      navigate('/admin/manage');
     } else {
       navigate('/customer/products');
     }

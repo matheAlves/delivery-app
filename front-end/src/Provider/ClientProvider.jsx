@@ -44,9 +44,7 @@ function ClientProvider({ children }) {
   useEffect(() => {
     if (!localStorage.getItem('shoppingCart')) {
       setShoppingCart(products);
-      console.log(shoppingCart);
       localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-      console.log(localStorage.getItem('shoppingCart'));
     }
   }, []);
 
