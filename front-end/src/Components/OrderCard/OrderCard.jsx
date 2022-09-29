@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function OrderCard({ id, status, saleDate, totalPrice }) {
-  const numberTwo = -2;
   const [newDate] = saleDate.split('T');
   const newPrice = totalPrice.replace('.', ',');
   const [year, month, day] = newDate.split('-');
-  const newYear = year.slice(numberTwo);
+  const newYear = year;
   return (
     <div>
       <Link to={ `/customer/orders/${id}` }>
