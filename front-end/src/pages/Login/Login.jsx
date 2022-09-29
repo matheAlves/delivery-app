@@ -43,10 +43,10 @@ function Login() {
       setAuthenticated(false);
       localStorage.setItem('user', JSON.stringify(data));
     }
-    if (data.role === "seller") {
+    if (data.role === 'seller') {
       navigate('/seller/orders');
     } else {
-    navigate('/customer/products');
+      navigate('/customer/products');
     }
   };
 
@@ -67,8 +67,8 @@ function Login() {
           type="text"
           placeholder="email@tryber.com"
           data-testid="common_login__input-email"
-          value={email}
-          onChange={({ target }) => setEmail(target.value)}
+          value={ email }
+          onChange={ ({ target }) => setEmail(target.value) }
           className="font-size"
         />
       </label>
@@ -82,8 +82,8 @@ function Login() {
           id="password"
           type="password"
           data-testid="common_login__input-password"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
+          value={ password }
+          onChange={ ({ target }) => setPassword(target.value) }
           className="font-size"
         />
       </label>
@@ -92,8 +92,8 @@ function Login() {
         <button
           type="button"
           data-testid="common_login__button-login"
-          disabled={!valid}
-          onClick={login}
+          disabled={ !valid }
+          onClick={ login }
           className="font-size"
         >
           Login
@@ -104,7 +104,7 @@ function Login() {
         <button
           type="button"
           data-testid="common_login__button-register"
-          onClick={() => navigate('/register')}
+          onClick={ () => navigate('/register') }
           className="font-size"
         >
           Ainda não tenho conta

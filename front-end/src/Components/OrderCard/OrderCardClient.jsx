@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function OrderCard({ id, status, saleDate, totalPrice }) {
+function OrderCardClient({ id, status, saleDate, totalPrice }) {
   const [newDate] = saleDate.split('T');
   const newPrice = totalPrice.replace('.', ',');
   const [year, month, day] = newDate.split('-');
@@ -32,11 +32,11 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
   );
 }
 
-OrderCard.propTypes = {
+OrderCardClient.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   saleDate: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
 };
 
-export default OrderCard;
+export default OrderCardClient;
