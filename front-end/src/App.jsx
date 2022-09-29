@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
 import OrderDetails from './pages/Client/OrderDetails/OrderDetails';
+import SellerOrderDetails from './pages/Seller/OrderDetails/SellerOrderDetails';
 import RedirectToLogin from './pages/RedirectToLogin';
 import Orders from './pages/Client/Pedidos/Orders';
 import ClientProducts from './pages/Client/Products/ClientProducts';
@@ -46,6 +47,7 @@ function App() {
             }
           />
           <Route exact path="/customer/orders" element={ <Orders /> } />
+          <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
           <Route exact path="/" element={ <RedirectToLogin /> } />
         </Routes>
       </MyProvider>

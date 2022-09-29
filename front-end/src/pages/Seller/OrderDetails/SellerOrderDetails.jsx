@@ -5,9 +5,9 @@ import UserNavbar from '../../../Components/UserNavbar/UsersNavbar';
 import { fetchSaleById } from '../../../services/clientAPI';
 import { fetchUserById } from '../../../services/userAPI';
 
-function OrderDetails() {
+function SellerOrderDetails() {
   const [order, setOrder] = useState({});
-  const [btnDisabled] = useState(true);
+  const [btnDisabled] = useState(false);
 
   const { id } = useParams();
 
@@ -31,7 +31,7 @@ function OrderDetails() {
     <>
       <UserNavbar />
       <h1
-        data-testid="customer_order_details__element-order-details-label-order-id"
+        data-testid="seller_order_details__element-order-details-label-order-id"
       >
         Pedido
         {' '}
@@ -42,19 +42,13 @@ function OrderDetails() {
       && (
         <>
           <span
-            data-testid="customer_order_details__element-order-details-label-seller-name"
-          >
-            {`P.Vend: ${order.seller}`}
-          </span>
-          {' '}
-          <span
-            data-testid="customer_order_details__element-order-details-label-order-date"
+            data-testid="seller_order_details__element-order-details-label-order-date"
           >
             {order.saleDate}
           </span>
           {' '}
           <span
-            data-testid={ 'customer_order_details__element'
+            data-testid={ 'seller_order_details__element'
             + '-order-details-label-delivery-status' }
           >
             {order.status}
@@ -62,15 +56,22 @@ function OrderDetails() {
           {' '}
         </>)}
       <button
-        data-testid="customer_order_details__button-delivery-check"
+        data-testid="seller_order_details__button-preparing-check"
         type="button"
         disabled={ btnDisabled }
       >
-        Marcar como entregue
+        Preparar pedido
+      </button>
+      <button
+        data-testid="seller_order_details__button-dispatch-check"
+        type="button"
+        disabled={ btnDisabled }
+      >
+        Saiu para entrega
       </button>
       <OrderDetailsTable orderId={ Number(id) } />
       <h1
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid="seller_order_details__element-order-total-price"
       >
         {order.totalPrice}
       </h1>
@@ -79,4 +80,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default SellerOrderDetails;
