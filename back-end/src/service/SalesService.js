@@ -21,6 +21,13 @@ const SalesService = {
     const result = await sale.findAll();
     return result;
   },
+
+  updateStatus: async ({ orderId, newStatus }) => {
+    const result = await sale.update({ status: newStatus }, {
+      where: { id: orderId },
+    });
+    return result;
+  },
 };
 
 module.exports = SalesService;

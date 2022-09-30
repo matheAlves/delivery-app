@@ -40,7 +40,6 @@ function Login() {
     });
 
     const data = await result.json();
-    console.log(data);
 
     if (result.status !== SUCCESSFULLY_HTTP_STATUS) {
       setAuthenticated(true);
@@ -48,7 +47,9 @@ function Login() {
     } else {
       setAuthenticated(false);
       localStorage.setItem('user', JSON.stringify(data));
-      if (data.role === 'administrator') {
+      if (data.role === 'seller') {
+        navigate('/seller/orders');
+      } else if (data.role === 'administrator') {
         navigate('/admin/manage');
       } else {
         navigate('/customer/products');
@@ -58,9 +59,9 @@ function Login() {
 
   return (
     <form className="form display-flex">
-      { authenticated && (
+      {authenticated && (
         <p data-testid="common_login__element-invalid-email">
-          { errorMessage }
+          {errorMessage}
         </p>
       )}
       <label

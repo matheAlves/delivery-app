@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
 import OrderDetails from './pages/Client/OrderDetails/OrderDetails';
+import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
+import SellerOrderDetails from './pages/Seller/OrderDetails/SellerOrderDetails';
 import RedirectToLogin from './pages/RedirectToLogin';
 import Orders from './pages/Client/Pedidos/Orders';
+import OrdersSeller from './pages/Seller/OrdersSeller';
 import ClientProducts from './pages/Client/Products/ClientProducts';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
@@ -56,8 +58,17 @@ function App() {
               </ClientProvider>
             }
           />
+          <Route
+            exact
+            path="/seller/orders"
+            element={
+              <ClientProvider>
+                <OrdersSeller />
+              </ClientProvider>
+            }
+          />
+          <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
           <Route exact path="/" element={ <RedirectToLogin /> } />
-          <Route exact path="/admin/manage" element={ <Admin /> } />
         </Routes>
       </MyProvider>
     </BrowserRouter>
