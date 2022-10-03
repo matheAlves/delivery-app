@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function OrderDetailsItems({ userType, index, description, quantity, price }) {
   return (
-    <tr>
+    <tr className="text-center outline outline-1 outline-neutral-200">
       <td
         data-testid={ `${userType}_checkout__element-order-table-item-number-${index}` }
       >

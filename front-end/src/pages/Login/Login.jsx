@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import logo from '../../images/logofull.svg';
 
 function Login() {
   const navigate = useNavigate();
@@ -58,66 +59,79 @@ function Login() {
   };
 
   return (
-    <form className="form display-flex">
-      {authenticated && (
-        <p data-testid="common_login__element-invalid-email">
-          {errorMessage}
-        </p>
-      )}
-      <label
-        htmlFor="login"
-        className="display-flex font-size"
-      >
-        Login
-        <input
-          id="login"
-          type="text"
-          placeholder="email@tryber.com"
-          data-testid="common_login__input-email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-          className="font-size"
+    <section className="flexlog container mx-auto lg:mt-28">
+      <div className="mt-16 flexlog min-h-full items-center justify-center">
+        <img
+          src={ logo }
+          alt="Biri logo"
+          width={ 200 }
         />
-      </label>
-
-      <label
-        htmlFor="password"
-        className="display-flex font-size"
+        <p className="text-lg">A biri ta para você!</p>
+      </div>
+      <div className="h-px w-1/4 mt-5 bg-neutral-400" />
+      <form
+        className="container flexlog justify-center py-8"
       >
-        Senha
-        <input
-          id="password"
-          type="password"
-          data-testid="common_login__input-password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-          className="font-size"
-        />
-      </label>
-
-      <div className="button">
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={ !valid }
-          onClick={ login }
-          className="font-size"
+        {authenticated && (
+          <p
+            data-testid="common_login__element-invalid-email"
+            className="text-red-700 font-bold mb-4"
+          >
+            {errorMessage}
+          </p>
+        )}
+        <label
+          htmlFor="login"
+          className="flexlog text-2xl py-1 px-4 my-1 sm:px-2 lg:px-4"
         >
-          Login
-        </button>
-      </div>
+          <input
+            id="login"
+            type="text"
+            placeholder="Email"
+            data-testid="common_login__input-email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+            className="text-2x1 p-2 ring-1 rounded-lg"
+          />
+        </label>
 
-      <div className="button-outlined">
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => navigate('/register') }
-          className="font-size"
+        <label
+          htmlFor="password"
+          className="flexlog text-2xl py-1 px-4 my-1 sm:px-2 lg:px-4"
         >
-          Ainda não tenho conta
-        </button>
-      </div>
-    </form>
+          <input
+            id="password"
+            type="password"
+            data-testid="common_login__input-password"
+            value={ password }
+            placeholder="Senha"
+            onChange={ ({ target }) => setPassword(target.value) }
+            className="text-2x1 p-2 ring-1 rounded-lg"
+          />
+        </label>
+        <div className="mt-4 flexlog container">
+          <button
+            type="button"
+            data-testid="common_login__button-login"
+            disabled={ !valid }
+            onClick={ login }
+            className="text-xl font-bold my-3 w-72 py-2 ring-1
+            bg-yellow-300  rounded-full transition-colors disabled:bg-red-200"
+          >
+            Login
+          </button>
+          <div className="h-px w-1/4 my-3 bg-neutral-400" />
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+            onClick={ () => navigate('/register') }
+            className="text-l text-yellow-800 my-3 w-72 py-2"
+          >
+            Ainda não tem uma conta? clique aqui
+          </button>
+        </div>
+      </form>
+    </section>
   );
 }
 

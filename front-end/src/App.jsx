@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import OrderDetails from './pages/Client/OrderDetails/OrderDetails';
 import ClientOrders from './pages/Client/Pedidos/ClientPedidos';
 import SellerOrderDetails from './pages/Seller/OrderDetails/SellerOrderDetails';

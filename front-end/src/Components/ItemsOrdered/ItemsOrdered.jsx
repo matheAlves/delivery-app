@@ -40,19 +40,19 @@ function ItemsOrdered() {
   }, []);
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+    <div className="flex flex-col justify-center container w-2/3">
+      <table className="table-auto my-12">
+        <thead className="px-3 space-y-2">
+          <tr className="text-center px-3 text-left">
+            <th className="outline outline-1 outline-neutral-200">Item</th>
+            <th className="outline outline-1 outline-neutral-200">Descrição</th>
+            <th className="outline outline-1 outline-neutral-200">Quantidade</th>
+            <th className="outline outline-1 outline-neutral-200">Valor Unitário</th>
+            <th className="outline outline-1 outline-neutral-200">Sub-total</th>
+            <th className="outline outline-1 outline-neutral-200">Remover Item</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="">
           {
             soldItems
               .filter(({ quantity }) => quantity > 0)
@@ -70,9 +70,12 @@ function ItemsOrdered() {
           }
         </tbody>
       </table>
-      <h2>
-        <span>Total: R$ </span>
-        <span data-testid="customer_checkout__element-order-total-price">
+      <h2 className="text-right text-4xl my-5">
+        <span className="font-bold">Total: R$ </span>
+        <span
+          data-testid="customer_checkout__element-order-total-price"
+          className="font-bold"
+        >
           {Number(totalValue).toFixed(2).replace('.', ',')}
         </span>
       </h2>
