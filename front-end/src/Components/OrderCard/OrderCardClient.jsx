@@ -9,10 +9,10 @@ function OrderCardClient({ id, status, saleDate, totalPrice }) {
   const newYear = year;
 
   const color = () => {
-    if (status === 'Preparando') return 'yellow-300';
-    if (status === 'Em Trânsito') return 'green-200';
-    if (status === 'Entregue') return 'green-400';
-    return 'yellow-400';
+    if (status === 'Preparando') return 'bg-yellow-300';
+    if (status === 'Em Trânsito') return 'bg-green-300';
+    if (status === 'Entregue') return 'bg-green-400';
+    if (status === 'Pendente') return 'bg-yellow-400';
   };
 
   return (
@@ -32,7 +32,7 @@ function OrderCardClient({ id, status, saleDate, totalPrice }) {
         <div>
           <p
             data-testid={ `customer_orders__element-delivery-status-${id}` }
-            className={ `text-xl w-36 text-center bg-${color()} p-6` }
+            className={ `text-xl w-40 text-center p-6 ${color()}` }
           >
             { `${status}` }
           </p>
