@@ -12,6 +12,7 @@ function UserNavbar() {
   const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('shoppingCart');
+    localStorage.removeItem('totalValue');
     setUser('');
     setHamgurger(false);
     navigate('/login');
