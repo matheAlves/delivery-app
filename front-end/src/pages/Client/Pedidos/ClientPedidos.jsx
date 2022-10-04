@@ -93,59 +93,63 @@ function ClientOrders() {
       <header>
         <UserNavbar />
       </header>
+      <section className="flex flex-col">
+        <div className="flex flex-col justify-center items-center space-y-4">
+          <h2 className="text-4xl my-6">Pedido:</h2>
+          <ItemsOrdered />
+        </div>
+        <div className="flex container space-x-5 justify-center items-center mx-auto">
+          <label htmlFor="seller mx-2">
+            Vendedor:
+            <select
+              id="seller"
+              data-testid="customer_checkout__select-seller"
+              value={ seller }
+              className="mx-3 outline outline-1 outline-neutral-300 px-3 py-2"
+              onChange={ ({ target: { value } }) => setSeller(value) }
+            >
+              {
+                sellers.map(({ name }) => (
+                  <option key={ name } value={ name }>{ name }</option>
+                ))
+              }
+            </select>
+          </label>
 
-      <section>
-        <h2>Finalizar Pedido</h2>
-        <ItemsOrdered />
-      </section>
+          <label htmlFor="addres">
+            Endereço
+            <input
+              id="addres"
+              data-testid="customer_checkout__input-address"
+              type="text"
+              value={ address }
+              className="mx-3 outline outline-1 outline-neutral-300 px-3 py-2"
+              onChange={ ({ target: { value } }) => setAddress(value) }
+            />
+          </label>
 
-      <section>
-        <label htmlFor="seller">
-          Vendedor:
-          <select
-            id="seller"
-            data-testid="customer_checkout__select-seller"
-            value={ seller }
-            onChange={ ({ target: { value } }) => setSeller(value) }
-          >
-            {
-              sellers.map(({ name }) => (
-                <option key={ name } value={ name }>{ name }</option>
-              ))
-            }
-          </select>
-        </label>
+          <label htmlFor="number-addres">
+            Número
+            <input
+              id="number-addres"
+              data-testid="customer_checkout__input-address-number"
+              type="number"
+              className="mx-3 outline outline-1 outline-neutral-300 px-3 py-2"
+              value={ numberAddress }
+              onChange={ ({ target: { value } }) => setNumberAddress(value) }
+            />
+          </label>
 
-        <label htmlFor="addres">
-          Endereço
-          <input
-            id="addres"
-            data-testid="customer_checkout__input-address"
-            type="text"
-            value={ address }
-            onChange={ ({ target: { value } }) => setAddress(value) }
-          />
-        </label>
-
-        <label htmlFor="number-addres">
-          Número
-          <input
-            id="number-addres"
-            data-testid="customer_checkout__input-address-number"
-            type="number"
-            value={ numberAddress }
-            onChange={ ({ target: { value } }) => setNumberAddress(value) }
-          />
-        </label>
-
-        <div>
-          <button
-            type="button"
-            data-testid="customer_checkout__button-submit-order"
-            onClick={ conclusionOfSale }
-          >
-            Finalizar pedido
-          </button>
+          <div>
+            <button
+              type="button"
+              data-testid="customer_checkout__button-submit-order"
+              onClick={ conclusionOfSale }
+              className="bg-yellow-300 text-2xl py-2 px-4 rounded-md"
+            >
+              Pedir
+            </button>
+          </div>
         </div>
       </section>
     </>

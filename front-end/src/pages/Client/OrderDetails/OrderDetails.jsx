@@ -47,25 +47,29 @@ function OrderDetails() {
   return (
     <>
       <UserNavbar />
-      <h1
-        data-testid="customer_order_details__element-order-details-label-order-id"
-      >
-        Pedido
-        {' '}
-        {id}
-        ;
-      </h1>
-      {order
+      <section className="flex flex-col items-center">
+        <h1
+          data-testid="customer_order_details__element-order-details-label-order-id"
+          className="text-2xl my-3 font-bold"
+        >
+          Pedido
+          {' '}
+          {id}
+          ;
+        </h1>
+        {order
       && (
-        <>
+        <section className="flex">
           <span
             data-testid="customer_order_details__element-order-details-label-seller-name"
+            className="mx-3"
           >
-            {`P.Vend: ${order.seller}`}
+            {`Vendedor: ${order.seller}`}
           </span>
           {' '}
           <span
             data-testid="customer_order_details__element-order-details-label-order-date"
+            className="mx-3"
           >
             {order.saleDate}
           </span>
@@ -73,27 +77,32 @@ function OrderDetails() {
           <span
             data-testid={ 'customer_order_details__element'
             + '-order-details-label-delivery-status' }
+            className="mx-3 font-bold"
           >
             {order.status}
           </span>
           {' '}
-        </>)}
-      <button
-        data-testid="customer_order_details__button-delivery-check"
-        type="button"
-        disabled={ btnDisabled }
-        onClick={ changeOrderStatus }
-      >
-        Marcar como entregue
-      </button>
-      <OrderDetailsTable orderId={ Number(id) } />
-      <h1
-        data-testid="customer_order_details__element-order-total-price"
-      >
-        {order.totalPrice}
-      </h1>
+        </section>)}
+        <OrderDetailsTable orderId={ Number(id) } />
+        <h1
+          data-testid="customer_order_details__element-order-total-price"
+          className="font-bold text-3xl"
+        >
+          {`Total: R$${order.totalPrice}`}
+        </h1>
+        <button
+          data-testid="customer_order_details__button-delivery-check"
+          type="button"
+          disabled={ btnDisabled }
+          onClick={ changeOrderStatus }
+          className="text-2xl bg-green-500 py-2 px-6
+          rounded-full outline outline-green-300 text-white
+          my-4"
+        >
+          Confirmar entrega
+        </button>
+      </section>
     </>
-
   );
 }
 

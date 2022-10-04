@@ -18,7 +18,7 @@ function Orders() {
       <header>
         <UserNavbar />
       </header>
-      <div>
+      <div className="flex flex-wrap mx-auto justify-center items-center">
         { filterOrders.length === 0 ? 'Você ainda não tem pedidos finalizados'
           : filterOrders.map((item) => (
             <OrderCardClient

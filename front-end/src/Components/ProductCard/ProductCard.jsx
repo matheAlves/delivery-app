@@ -61,20 +61,23 @@ function ProductCard({
   }, []);
 
   return (
-    <div className="card_body">
+    <div
+      className="card_body w-fit min-w-fit mx-auto bg-neutral-100 flex
+    flex-col items-center justify-center relative my-3 rounded-lg py-4"
+    >
       <div
         className="upper_card_body"
       >
         <p
-          className="card_price"
+          className="card_price absolute font-bold text-2xl"
           data-testid={ `customer_products__element-card-price-${cardId}` }
         >
-          { cardPrice.replace('.', ',') }
+          { `R$ ${cardPrice.replace('.', ',')}`}
         </p>
         <img
           src={ cardImg }
           alt={ cardName }
-          className="card_img"
+          className="max-h-max h-64"
           width={ 250 }
           data-testid={ `customer_products__img-card-bg-image-${cardId}` }
         />
@@ -83,12 +86,13 @@ function ProductCard({
         { cardName }
       </p>
       <div
-        className="lower_card_body"
+        className="justify-center items-center text-center flex flex-row"
       >
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${cardId}` }
           onClick={ changeInputValue }
+          className="bg-yellow-300 mx-2 w-8 rounded-md font-bold p-1"
         >
           -
         </button>
@@ -97,7 +101,7 @@ function ProductCard({
           value={ quantity }
           type="number"
           min={ 0 }
-          className="quantity"
+          className="outline outline-1 w-1/6 p-1 text-right"
           onChange={ ({ target }) => {
             setInputQuantity(target);
             setQuantity(target.value);
@@ -107,6 +111,7 @@ function ProductCard({
           type="button"
           data-testid={ `customer_products__button-card-add-item-${cardId}` }
           onClick={ changeInputValue }
+          className="bg-yellow-300 mx-2 w-8 rounded-md font-bold p-1"
         >
           +
         </button>

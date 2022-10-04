@@ -83,7 +83,7 @@ function ClientProducts() {
   return (
     <>
       <UserNavbar />
-      <section className="products_list">
+      <section className="flex lg:flex-wrap flex-wrap p-6 mb-12 relative">
         {shoppingCart.map((itm) => (
           <ProductCard
             cardName={ itm.name }
@@ -96,7 +96,8 @@ function ClientProducts() {
         ))}
         <button
           type="button"
-          className="cartButton"
+          className="fixed bottom-2 right-2 lg:bottom-5 lg:right-10
+          p-4 lg:py-3 bg-yellow-300 font-bold lg:w-1/6 rounded-lg"
           onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__button-cart"
           disabled={ (!totalValue > 0) }

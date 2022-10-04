@@ -33,17 +33,17 @@ function OrderDetailsTable(props) {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center container w-2/3">
       {order
       && (
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
+        <table className="table-auto my-12">
+          <thead className="px-3 space-y-2">
+            <tr className="text-center px-3 text-left">
+              <th className="outline outline-1 outline-neutral-200">Item</th>
+              <th className="outline outline-1 outline-neutral-200">Descrição</th>
+              <th className="outline outline-1 outline-neutral-200">Quantidade</th>
+              <th className="outline outline-1 outline-neutral-200">Valor Unitário</th>
+              <th className="outline outline-1 outline-neutral-200">Sub-total</th>
             </tr>
           </thead>
           <tbody>

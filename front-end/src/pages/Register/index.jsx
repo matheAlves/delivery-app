@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
+import logo from '../../images/LogoIcon.svg';
 
 function Register() {
   const navigate = useNavigate();
@@ -47,10 +48,18 @@ function Register() {
   };
 
   return (
-    <div className="container">
-      <h1>Cadastro</h1>
-      <form className="flex">
-        <label htmlFor="name">
+    <div className="container flex flex-col items-center justify-center mx-auto my-12">
+      <img src={ logo } alt="logo" width={ 80 } />
+      <h1 className="font-bold text-2xl my-6">Cadastro</h1>
+      <div className="h-px w-1/3 my-5 bg-neutral-400" />
+      <form
+        className="flex flex-col items-center justify-center mx-auto space-y-4
+        "
+      >
+        <label
+          htmlFor="name"
+          className="text-xl items-center p-2"
+        >
           Nome
           <input
             data-testid="common_register__input-name"
@@ -58,21 +67,30 @@ function Register() {
             id="name"
             placeholder="Seu nome"
             value={ name }
+            className="mx-3 outline outline-1 outline-neutral-400 p-2 rounded-md"
             onChange={ ({ target }) => setName(target.value) }
           />
         </label>
-        <label htmlFor="email">
+        <label
+          htmlFor="email"
+          className="text-xl items-center p-2"
+        >
           Email
+          {' '}
           <input
             data-testid="common_register__input-email"
             type="text"
             id="email"
             placeholder="seu-email@site.com.br"
             value={ email }
+            className="mx-3 outline outline-1 outline-neutral-400 p-2 rounded-md"
             onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
-        <label htmlFor="password">
+        <label
+          htmlFor="password"
+          className="text-xl items-center p-2"
+        >
           Senha
           <input
             data-testid="common_register__input-password"
@@ -80,6 +98,7 @@ function Register() {
             id="password"
             placeholder="Senha"
             value={ password }
+            className="mx-3 outline outline-1 outline-neutral-400 p-2 rounded-md"
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
@@ -88,6 +107,8 @@ function Register() {
           type="button"
           disabled={ isDisabled }
           onClick={ handleClick }
+          className="text-xl font-bold my-3 w-72 py-2 ring-1
+            bg-yellow-300  rounded-full transition-colors disabled:bg-red-200"
         >
           CADASTRAR
         </button>
@@ -98,6 +119,7 @@ function Register() {
           </p>
         )}
       </form>
+      <div className="h-px w-1/3 my-5 bg-neutral-400" />
     </div>
   );
 }

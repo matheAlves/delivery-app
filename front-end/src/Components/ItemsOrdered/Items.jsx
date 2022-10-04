@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Items({ id, description, quantity, unitValue, itemNumber, removeCartItem }) {
   return (
-    <tr>
+    <tr className="text-center outline outline-1 outline-neutral-200">
       <td
         data-testid={ `customer_checkout__element-order-table-item-number-${itemNumber}` }
       >
@@ -35,6 +35,7 @@ function Items({ id, description, quantity, unitValue, itemNumber, removeCartIte
           data-testid={ `customer_checkout__element-order-table-remove-${itemNumber}` }
           onClick={ removeCartItem }
           id={ id }
+          className="text-white bg-red-600 p-2 rounded-md my-2 font-bold"
         >
           Remover Item
         </button>
