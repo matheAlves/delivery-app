@@ -7,7 +7,6 @@ import getSellers from '../../../services/userAPI';
 function ClientOrders() {
   const navigate = useNavigate();
   const [sellers, setSellers] = useState([]);
-  const [totalValue, setTotalValue] = useState(0);
   const [address, setAddress] = useState('');
   const [numberAddress, setNumberAddress] = useState('');
   const [seller, setSeller] = useState('Fulana Pereira');
@@ -17,12 +16,6 @@ function ClientOrders() {
     const sellersFound = await getSellers();
     setSellers(sellersFound);
   };
-
-  function getTotalValue() {
-    const data = localStorage.getItem('totalValue');
-    const converted = data.replace(',', '.');
-    setTotalValue(Number(converted));
-  }
 
   const getItemsFromLocalStorageToRequest = () => {
     const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -57,7 +50,7 @@ function ClientOrders() {
     const url = 'http://localhost:3001/sales';
     const sales = {
       ...getSellerAndUserIdFromLocalStorage(),
-      totalPrice: totalValue,
+      totalPrice: localStorage.getItem('totalValue').replace(',', '.'),
       deliveryAddress: address,
       deliveryNumber: numberAddress,
       saleDate: new Date(),
@@ -74,8 +67,6 @@ function ClientOrders() {
     });
     const data = await sale.json();
 
-    console.log(data);
-
     if (sale.status === SUCCESSFULLY_HTTP_STATUS) {
       navigate(`/customer/orders/${data.id}`);
     } else {
@@ -85,7 +76,6 @@ function ClientOrders() {
 
   useEffect(() => {
     setSellersFromDB();
-    getTotalValue();
   }, []);
 
   return (
